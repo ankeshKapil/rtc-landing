@@ -1,0 +1,145 @@
+---
+import Layout from '../layouts/Layout.astro';
+import HeroSection from '../components/HeroSection.astro';
+
+const brands = [
+  {
+    id: "Cattle feeds",
+    name: "Cattle Feed",
+    logo: "src/assets/cattle-feed.png",
+    description: "Our cattle feed products are designed to enhance milk production, improve cattle health, and support overall growth and development.",
+    products: [
+      "Binola Khal",
+      "Chokher",
+      "Taramira",
+      "Sarson Khali",
+      "Premium Dairy Feed",
+      "Calf Growth Formula",
+      "High-Yield Cattle Feed",
+      "Mineral Mixtures"
+    ]
+  },
+  {
+    id: "bangur",
+    name: "Cement",
+    logo: "https://images.pexels.com/photos/4513940/pexels-photo-4513940.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    description: "ACC Limited is one of India's leading manufacturers of cement and ready-mix concrete. With a legacy of over 80 years, ACC has been at the forefront of sustainable construction practices, providing high-quality cement for all construction needs.",
+    products: [
+      "ACC Gold",
+      "ACC Suraksha",
+      "ACC F2R",
+      "ACC HPC"
+    ]
+  },
+  {
+    id: "kamdhenu",
+    name: "Kamdhenu TMT",
+    logo: "https://images.pexels.com/photos/2598624/pexels-photo-2598624.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    description: "Kamdhenu Limited is a renowned name in the steel industry, producing high-quality TMT bars that offer superior strength and durability. Their TMT bars are known for earthquake resistance, high ductility, and excellent bonding with concrete.",
+    products: [
+      "Kamdhenu SS 10000",
+      "Kamdhenu NXT",
+      "Kamdhenu ColorMax",
+      "Structural Steel"
+    ]
+  },
+  {
+    id: "woosh",
+    name: "Woosh Washing Powder",
+    logo: "https://images.pexels.com/photos/5591580/pexels-photo-5591580.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    description: "Woosh is a premium laundry care brand that offers effective cleaning solutions for all types of fabrics. Their washing powders and detergents are formulated to remove tough stains while being gentle on fabrics and environmentally friendly.",
+    products: [
+      "Woosh Ultra Clean",
+      "Woosh Fabric Care",
+      "Woosh Stain Remover",
+      "Woosh Gentle Wash"
+    ]
+  },
+  {
+    id: "elephant",
+    name: "Elephant Masalas",
+    logo: "https://images.pexels.com/photos/2802527/pexels-photo-2802527.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    description: "Elephant Masalas is a trusted brand known for its authentic and pure spices. Their products bring out the true flavors of traditional Indian cuisine, especially Himachali dishes. Each spice is carefully sourced and processed to retain its natural aroma and flavor.",
+    products: [
+      "Garam Masala",
+      "Dham Special Blend",
+      "Chana Masala",
+      "Kitchen King Masala"
+    ]
+  }
+];
+---
+
+<Layout
+  title="Our Brands - Roop Trading Company Hamirpur"
+  description="Explore the premium brands we represent as authorized dealers including Nutricana, ACC Cement, Kamdhenu TMT, Woosh, and Elephant Masalas."
+>
+  <HeroSection 
+    title="Our Premium Brands"
+    subtitle="We are proud to be authorized dealers of these high-quality brands"
+    imageSrc="https://images.pexels.com/photos/669609/pexels-photo-669609.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+  />
+  
+  <section class="py-12 bg-neutral-50">
+    <div class="container mx-auto px-4">
+      <div class="max-w-4xl mx-auto text-center">
+        <h2 class="text-3xl font-bold mb-6">Authorized Brand Partnerships</h2>
+        <p class="text-lg text-neutral-700 mb-8">
+          As authorized dealers of these premium brands, we ensure you get authentic products at competitive prices. Our long-standing relationships with these manufacturers allow us to offer special deals and the latest products.
+        </p>
+      </div>
+    </div>
+  </section>
+  
+  {brands.map((brand) => (
+    <section class="py-16 border-b border-neutral-200" id={brand.id}>
+      <div class="container mx-auto px-4">
+        <div class="md:flex items-center gap-12">
+          <div class="md:w-1/3 mb-8 md:mb-0">
+            <div class="bg-white p-4 rounded-lg shadow-md overflow-hidden">
+              <img 
+                src={brand.logo} 
+                alt={`${brand.name} logo`} 
+                class="w-full h-64 object-cover"
+                loading="lazy"
+              />
+            </div>
+          </div>
+          <div class="md:w-2/3">
+            <h2 class="text-3xl font-bold mb-4">{brand.name}</h2>
+            <p class="text-lg text-neutral-700 mb-6">{brand.description}</p>
+            
+            <h3 class="text-xl font-semibold mb-3">Products Available:</h3>
+            <ul class="grid grid-cols-1 md:grid-cols-2 gap-2 mb-6">
+              {brand.products.map((product) => (
+                <li class="flex items-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary-600 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                  </svg>
+                  {product}
+                </li>
+              ))}
+            </ul>
+            
+            <a 
+              href="/contact" 
+              class="inline-block px-6 py-3 bg-primary-600 text-white rounded-md hover:bg-primary-700 transition-colors"
+            >
+              Inquire About {brand.name}
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  ))}
+  
+  <section class="py-16 bg-primary-50">
+    <div class="container mx-auto px-4 text-center">
+      <h2 class="text-3xl font-bold mb-6">Looking for Special Brand Products?</h2>
+      <p class="text-lg text-neutral-700 mb-8 max-w-3xl mx-auto">
+        If you're looking for specific products from these brands or have bulk requirements, please contact us. We can arrange special orders and provide competitive quotes.
+      </p>
+      <a href="/contact" class="inline-block px-8 py-4 bg-primary-600 text-white font-medium rounded-md hover:bg-primary-700 transition-colors">Contact Us for Branded Products</a>
+    </div>
+  </section>
+</Layout>

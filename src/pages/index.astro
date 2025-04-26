@@ -1,0 +1,153 @@
+---
+import Layout from '../layouts/Layout.astro';
+import HeroSection from '../components/HeroSection.astro';
+import ProductCategory from '../components/ProductCategory.astro';
+import BrandLogos from '../components/BrandLogos.astro';
+import SpecialOffers from '../components/SpecialOffers.astro';
+import Testimonials from '../components/Testimonials.astro';
+import LocationMap from '../components/LocationMap.astro';
+
+const groceryProducts = [
+  {
+    name: "Quality Groceries",
+    description: "Premium grocery items for daily needs including rice, pulses, flour, and more.",
+    image: "https://images.pexels.com/photos/3001035/pexels-photo-3001035.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+  },
+  {
+    name: "Branded Spices",
+    description: "Authentic spices including Elephant Masalas for traditional Himachali recipes.",
+    image: "https://images.pexels.com/photos/1435904/pexels-photo-1435904.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+  },
+  {
+    name: "Cleaning Products",
+    description: "Full range of cleaning products including Woosh Washing Powder for superior cleaning.",
+    image: "https://images.pexels.com/photos/4239013/pexels-photo-4239013.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+  }
+];
+
+const constructionProducts = [
+  {
+    name: "ACC Cement",
+    description: "High-quality cement for all your construction needs from foundation to finishing.",
+    image: "https://images.pexels.com/photos/544966/pexels-photo-544966.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+  },
+  {
+    name: "Kamdhenu TMT Bars",
+    description: "Superior strength TMT bars for reinforcement, ensuring structural integrity.",
+    image: "https://images.pexels.com/photos/2219024/pexels-photo-2219024.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+  },
+  {
+    name: "Building Materials",
+    description: "Complete range of building materials including bricks, sand, aggregate, and more.",
+    image: "https://images.pexels.com/photos/2219048/pexels-photo-2219048.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+  }
+];
+
+const cattleFeedProducts = [
+  {
+    name: "Nutricana Cattle Feed",
+    description: "Premium quality cattle feed for optimal nutrition and growth for your livestock.",
+    image: "https://images.pexels.com/photos/235725/pexels-photo-235725.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+  },
+  {
+    name: "Mineral Mixtures",
+    description: "Essential mineral supplements to ensure your cattle's health and productivity.",
+    image: "https://images.pexels.com/photos/162801/cows-dairy-farm-milk-162801.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+  },
+  {
+    name: "Feed Supplements",
+    description: "Specialized supplements for dairy farmers to enhance milk production and quality.",
+    image: "https://images.pexels.com/photos/735968/pexels-photo-735968.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+  }
+];
+---
+
+<Layout 
+  title="Roop Trading Company - Wholesale & Retail Store in Hamirpur, HP"
+  description="Premium wholesale and retail shop in Hamirpur offering groceries, construction materials, cattle feed and more. Special discounts on bulk orders."
+>
+  <HeroSection 
+    title="Your One-Stop Shop in Hamirpur"
+    subtitle="Wholesale and retail business offering quality groceries, cattle feed, construction materials and more. Authorized dealer of premium brands."
+    imageSrc="https://images.pexels.com/photos/264636/pexels-photo-264636.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+  />
+  
+  <section class="py-12 bg-neutral-50">
+    <div class="container mx-auto px-4 text-center">
+      <h2 class="text-3xl font-bold mb-8">Why Choose Us?</h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div class="bg-white p-6 rounded-lg shadow-md transform hover:scale-105 transition-transform duration-300">
+          <div class="text-primary-600 mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">Quality Products</h3>
+          <p class="text-neutral-600">Authorized dealer of premium brands ensuring top-notch quality.</p>
+        </div>
+        
+        <div class="bg-white p-6 rounded-lg shadow-md transform hover:scale-105 transition-transform duration-300">
+          <div class="text-primary-600 mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">Wholesale Prices</h3>
+          <p class="text-neutral-600">Special discounts on wholesale orders making us the best choice for businesses.</p>
+        </div>
+        
+        <div class="bg-white p-6 rounded-lg shadow-md transform hover:scale-105 transition-transform duration-300">
+          <div class="text-primary-600 mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">Wide Selection</h3>
+          <p class="text-neutral-600">From groceries to construction materials, we have everything you need.</p>
+        </div>
+        
+        <div class="bg-white p-6 rounded-lg shadow-md transform hover:scale-105 transition-transform duration-300">
+          <div class="text-primary-600 mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">Experienced Team</h3>
+          <p class="text-neutral-600">Our knowledgeable staff provides expert advice for all your needs.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <ProductCategory 
+    title="Grocery & Karyana Items" 
+    description="Quality grocery products for your daily needs including premium brands."
+    products={groceryProducts}
+    id="grocery"
+  />
+  
+  <ProductCategory 
+    title="Construction Materials" 
+    description="Complete range of high-quality construction materials for all your building needs."
+    products={constructionProducts}
+    bgColor="bg-neutral-50"
+    id="construction"
+  />
+  
+  <ProductCategory 
+    title="Cattle Feed" 
+    description="Premium quality cattle feed and supplements for optimal livestock health and productivity."
+    products={cattleFeedProducts}
+    id="cattle-feed"
+  />
+  
+  <BrandLogos />
+  
+  <SpecialOffers />
+  
+  <Testimonials />
+  
+  <LocationMap />
+  
+</Layout>

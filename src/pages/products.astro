@@ -1,0 +1,164 @@
+---
+import Layout from '../layouts/Layout.astro';
+import HeroSection from '../components/HeroSection.astro';
+import ProductCategory from '../components/ProductCategory.astro';
+
+const groceryProducts = [
+  {
+    name: "Premium Rice & Pulses",
+    description: "High-quality rice varieties and pulses sourced from the best farms.",
+    image: "/src/assets/jalani.png"
+  },
+  {
+    name: "Flours & Grains",
+    description: "Freshly ground flours and wholesome grains for your daily needs.",
+    image: "/src/assets/rajdhani-besan.png"
+  },
+  {
+    name: "Oils & Ghee",
+    description: "Pure cooking oils and traditional ghee for authentic flavor.",
+    image: "/src/assets/p-mark.png"
+  },
+  {
+    name: "Spices & Masalas",
+    description: "Authentic Elephant Masalas and other premium spice brands.",
+    image: "/src/assets/elephant.png"
+  },
+  {
+    name: "Cleaning Products",
+    description: "Woosh Washing Powder and other household cleaning essentials.",
+    image: "/src/assets/rajdhani.png"
+  },
+  {
+    name: "Packaged Foods",
+    description: "Quality snacks, biscuits, and other packaged food items.",
+    image: "/src/assets/rajdhani.png"
+  }
+];
+
+const constructionProducts = [
+  {
+    name: "ACC Cement",
+    description: "Premium quality cement for all construction applications.",
+    image: "/src/assets/acc.png"
+  },
+  {
+    name: "Kamdhenu TMT Bars",
+    description: "High-strength TMT bars for reinforced concrete structures.",
+    image: "/src/assets/Kamdhenu-Group-Logo.svg"
+  },
+  {
+    name: "Bricks & Blocks",
+    description: "Quality bricks and concrete blocks for durable construction.",
+    image: "/src/assets/bangur.png"
+  },
+  {
+    name: "Sand & Aggregate",
+    description: "Construction-grade sand and aggregates for various applications.",
+    image: "/src/assets/bangur.png"
+  },
+  {
+    name: "Paints & Finishes",
+    description: "Interior and exterior paints for beautiful, lasting finishes.",
+    image: "/src/assets/bangur.png"
+  },
+  {
+    name: "Hardware & Tools",
+    description: "Essential hardware items and tools for construction projects.",
+    image: "/src/assets/bangur.png"
+  }
+];
+
+const cattleFeedProducts = [
+  {
+    name: "Nutricana Premium Feed",
+    description: "Premium quality cattle feed for optimal nutrition and growth.",
+    image: "/src/assets/cattle-feed.png"
+  },
+  {
+    name: "Dairy Special Feed",
+    description: "Specialized feed for dairy cattle to enhance milk production.",
+    image: "/src/assets/cattle-feed.png"
+  },
+  {
+    name: "Calf Growth Formula",
+    description: "Nutritionally balanced feed for healthy calf development.",
+    image: "/src/assets/cattle-feed.png"
+  },
+  {
+    name: "Mineral Mixtures",
+    description: "Essential mineral supplements for cattle health and productivity.",
+    image: "/src/assets/cattle-feed.png"
+  },
+  {
+    name: "Fodder Seeds",
+    description: "Quality seeds for growing nutritious fodder for livestock.",
+    image: "/src/assets/cattle-feed.png"
+  },
+  {
+    name: "Cattle Health Products",
+    description: "Supplements and health products for cattle well-being.",
+    image: "/src/assets/cattle-feed.png"
+  }
+];
+---
+
+<Layout 
+  title="Products - Roop Trading Company Hamirpur"
+  description="Explore our extensive range of products including groceries, construction materials, cattle feed, and more. Quality products at competitive prices."
+>
+  <HeroSection 
+    title="Our Products"
+    subtitle="Explore our extensive range of quality products for all your needs"
+    imageSrc="/src/assets/background.svg"
+  />
+
+  <section class="py-12 bg-neutral-50">
+    <div class="container mx-auto px-4">
+      <div class="max-w-4xl mx-auto text-center">
+        <h2 class="text-3xl font-bold mb-6">Complete Product Range</h2>
+        <p class="text-lg text-neutral-700 mb-8">
+          We offer an extensive range of products catering to various needs - from daily groceries to construction materials and cattle feed. As authorized dealers of premium brands, we ensure you get authentic products at the best prices.
+        </p>
+
+        <div class="flex flex-wrap justify-center gap-4">
+          <a href="#grocery" class="px-6 py-3 bg-primary-600 text-white rounded-md hover:bg-primary-700 transition-colors">Grocery Items</a>
+          <a href="#construction" class="px-6 py-3 bg-primary-600 text-white rounded-md hover:bg-primary-700 transition-colors">Construction Materials</a>
+          <a href="#cattle-feed" class="px-6 py-3 bg-primary-600 text-white rounded-md hover:bg-primary-700 transition-colors">Cattle Feed</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <ProductCategory 
+    title="Grocery & Karyana Items" 
+    description="Quality grocery products for your daily needs including premium brands."
+    products={groceryProducts}
+    id="grocery"
+  />
+
+  <ProductCategory 
+    title="Construction Materials" 
+    description="Complete range of high-quality construction materials for all your building needs."
+    products={constructionProducts}
+    bgColor="bg-neutral-50"
+    id="construction"
+  />
+
+  <ProductCategory 
+    title="Cattle Feed" 
+    description="Premium quality cattle feed and supplements for optimal livestock health and productivity."
+    products={cattleFeedProducts}
+    id="cattle-feed"
+  />
+
+  <section class="py-16 bg-neutral-50">
+    <div class="container mx-auto px-4 text-center">
+      <h2 class="text-3xl font-bold mb-6">Need Something Special?</h2>
+      <p class="text-lg text-neutral-700 mb-8 max-w-3xl mx-auto">
+        If you're looking for specific products or have bulk requirements, please contact us. We can arrange special orders and provide competitive quotes for larger quantities.
+      </p>
+      <a href="/contact" class="inline-block px-8 py-4 bg-primary-600 text-white font-medium rounded-md hover:bg-primary-700 transition-colors">Contact Us for Special Orders</a>
+    </div>
+  </section>
+</Layout>

@@ -1,0 +1,23 @@
+---
+import Layout from '../layouts/Layout.astro';
+import HeroSection from '../components/HeroSection.astro';
+import ContactForm from '../components/ContactForm.astro';
+import LocationMap from '../components/LocationMap.astro';
+---
+
+<Layout
+  title="Contact Us - Roop Trading Company Hamirpur"
+  description="Get in touch with Roop Trading Company in Hamirpur, Himachal Pradesh. Reach out for wholesale inquiries, special orders, or any questions you might have."
+>
+  <HeroSection 
+    title="Contact Us"
+    subtitle="Get in touch with us for inquiries, orders, or any questions you might have"
+    imageSrc="https://images.pexels.com/photos/7709292/pexels-photo-7709292.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+    ctaText="Call Now"
+    ctaLink="tel:+7018657685"
+  />
+  
+  <ContactForm />
+  
+  <LocationMap />
+</Layout>

@@ -1,0 +1,24 @@
+{
+  "name": "karyana-shop-website",
+  "type": "module",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@tailwindcss/postcss": "^4.1.4",
+    "@tailwindcss/vite": "^4.1.4",
+    "astro": "^5.7.5",
+    "astro-seo": "^0.8.4",
+    "sharp": "^0.34.1"
+  },
+  "devDependencies": {
+    "daisyui": "^5.0.28",
+    "tailwindcss": "^4.1.4"
+  }
+}

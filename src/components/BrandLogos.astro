@@ -1,0 +1,90 @@
+---
+interface Brand {
+  name: string;
+  logo: string;
+  description: string;
+  link: string;
+}
+
+const brands: Brand[] = [
+  {
+    name: "Bangur Cement",
+    logo: "src/assets/bangur.png",
+    description: "High-quality cement for all construction needs",
+    link: "/brands#bangur"
+  },
+  {
+    name: "Kamdhenu TMT",
+    logo: "src/assets/Kamdhenu-Group-Logo.svg",
+    description: "Superior strength TMT bars for reinforcement",
+    link: "/brands#kamdhenu"
+  },
+  {
+    name: "Elephant Masalas",
+    logo: "src/assets/elephant.png",
+    description: "Authentic spices for traditional Himachali recipes",
+    link: "/brands#elephant"
+  },
+  {
+    name: "Rajdhani Mustard Oil",
+    logo: "src/assets/rajdhani.png",
+    description: "Pure cold pressed mustard oil",
+    link: "/brands#rajdhani"
+  },
+  {
+    name: "P.Mark Mustard Oil",
+    logo: "src/assets/p-mark.png",
+    description: "Pure cold pressed mustard oil",
+    link: "/brands#p-mark"
+  },
+  {
+    name: "Jalani",
+    logo: "src/assets/jalani.png",
+    description: "Healthy and Hygienic food products",
+    link: "/brands#jalani"
+  },
+  {
+    name: "Rajdhani Group",
+    logo: "src/assets/rajdhani-besan.png",
+    description: "Natural & Safe Besan",
+    link: "/brands#rajdhani-besan"
+  },
+  {
+    name: "ACC Cement",
+    logo: "src/assets/acc.png",
+    description: "High-quality cement for all construction needs",
+    link: "/brands#acc"
+  },
+];
+---
+
+<section class="py-16 bg-neutral-50">
+  <div class="container mx-auto px-4">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl md:text-4xl font-bold mb-4">Our Brand Partners</h2>
+      <p class="max-w-2xl mx-auto text-neutral-700">Authorized dealer for these premium brands, ensuring you get authentic products at the best prices.</p>
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {brands.map((brand) => (
+        <a 
+          href={brand.link} 
+          class="flex flex-col bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300"
+        >
+          <div class="h-48 overflow-hidden">
+            <img 
+              src={brand.logo} 
+              alt={`${brand.name} logo`} 
+              class="w-full h-full object-cover"
+              loading="lazy"
+            />
+          </div>
+          <div class="p-5 flex-grow">
+            <h3 class="text-xl font-semibold mb-2">{brand.name}</h3>
+            <p class="text-neutral-600">{brand.description}</p>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>

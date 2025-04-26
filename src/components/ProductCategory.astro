@@ -1,0 +1,49 @@
+---
+interface Product {
+  name: string;
+  description: string;
+  image: string;
+}
+
+interface Props {
+  title: string;
+  description: string;
+  products: Product[];
+  bgColor?: string;
+  id?: string;
+}
+
+const { 
+  title, 
+  description, 
+  products,
+  bgColor = "bg-white",
+  id
+} = Astro.props;
+---
+
+<section class={`py-16 ${bgColor}`} id={id}>
+  <div class="container mx-auto px-4">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl md:text-4xl font-bold mb-4">{title}</h2>
+      <p class="max-w-2xl mx-auto text-neutral-700">{description}</p>
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {products.map((product) => (
+        <div class="bg-white rounded-lg shadow-md overflow-hidden transform hover:scale-[1.01] transition-transform duration-300">
+          <img 
+            src={product.image} 
+            alt={product.name} 
+            class="w-full h-48 object-cover"
+            loading="lazy"
+          />
+          <div class="p-5">
+            <h3 class="text-xl font-semibold mb-2">{product.name}</h3>
+            <p class="text-neutral-600">{product.description}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
