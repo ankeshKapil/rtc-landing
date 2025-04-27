@@ -1,7 +1,17 @@
 ---
+import { Image } from 'astro:assets';
+import bangur from '../assets/bangur.png';
+import elephant from '../assets/elephant.png';
+import jalani from '../assets/jalani.png';
+import Kamdhenu from '../assets/Kamdhenu.svg';
+import p_mark from '../assets/p_mark.png';
+import rajdhani from '../assets/rajdhani.png';
+import rajdhani_besan from '../assets/rajdhani_besan.png';
+import acc from '../assets/acc.png';
+
 interface Brand {
   name: string;
-  logo: string;
+  logo: ImageMetadata;
   description: string;
   link: string;
 }
@@ -9,49 +19,49 @@ interface Brand {
 const brands: Brand[] = [
   {
     name: "Bangur Cement",
-    logo: "../assets/bangur.png",
+    logo: bangur,
     description: "High-quality cement for all construction needs",
     link: "/brands#bangur"
   },
   {
     name: "Kamdhenu TMT",
-    logo: "../assets/Kamdhenu-Group-Logo.svg",
+    logo: Kamdhenu,
     description: "Superior strength TMT bars for reinforcement",
     link: "/brands#kamdhenu"
   },
   {
     name: "Elephant Masalas",
-    logo: "../assets/elephant.png",
+    logo: elephant,
     description: "Authentic spices for traditional Himachali recipes",
     link: "/brands#elephant"
   },
   {
     name: "Rajdhani Mustard Oil",
-    logo: "../assets/rajdhani.png",
+    logo: rajdhani,
     description: "Pure cold pressed mustard oil",
     link: "/brands#rajdhani"
   },
   {
     name: "P.Mark Mustard Oil",
-    logo: "../assets/p-mark.png",
+    logo: p_mark,
     description: "Pure cold pressed mustard oil",
     link: "/brands#p-mark"
   },
   {
     name: "Jalani",
-    logo: "../assets/jalani.png",
+    logo: jalani,
     description: "Healthy and Hygienic food products",
     link: "/brands#jalani"
   },
   {
     name: "Rajdhani Group",
-    logo: "../assets/rajdhani-besan.png",
+    logo: rajdhani_besan,
     description: "Natural & Safe Besan",
     link: "/brands#rajdhani-besan"
   },
   {
     name: "ACC Cement",
-    logo: "../assets/acc.png",
+    logo: acc,
     description: "High-quality cement for all construction needs",
     link: "/brands#acc"
   },
@@ -72,8 +82,8 @@ const brands: Brand[] = [
           class="flex flex-col bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300"
         >
           <div class="h-48 overflow-hidden">
-            <img 
-              src={brand.logo} 
+            <Image
+              src={brand.logo}
               alt={`${brand.name} logo`} 
               class="w-full h-full object-cover"
               loading="lazy"

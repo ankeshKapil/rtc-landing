@@ -1,8 +1,10 @@
 ---
+import Image from 'astro/components/Image.astro';
+
 interface Product {
   name: string;
   description: string;
-  image: string;
+  image: ImageMetadata;
 }
 
 interface Props {
@@ -32,7 +34,7 @@ const {
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
       {products.map((product) => (
         <div class="bg-white rounded-lg shadow-md overflow-hidden transform hover:scale-[1.01] transition-transform duration-300">
-          <img 
+          <Image
             src={product.image} 
             alt={product.name} 
             class="w-full h-48 object-cover"

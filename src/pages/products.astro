@@ -2,104 +2,67 @@
 import Layout from '../layouts/Layout.astro';
 import HeroSection from '../components/HeroSection.astro';
 import ProductCategory from '../components/ProductCategory.astro';
-
+import cattle_feed from '../assets/cattle_feed.png';
+import bangur from '../assets/bangur.png';
+import elephant from '../assets/elephant.png';
+import jalani from '../assets/jalani.png';
+import Kamdhenu from '../assets/Kamdhenu.svg';
+import p_mark from '../assets/p_mark.png';
+import rajdhani from '../assets/rajdhani.png';
+import rajdhani_besan from '../assets/rajdhani_besan.png';
+import acc from '../assets/acc.png';
 const groceryProducts = [
   {
     name: "Premium Rice & Pulses",
     description: "High-quality rice varieties and pulses sourced from the best farms.",
-    image: "../assets/astro.svg/jalani.png"
+    image: jalani
   },
   {
     name: "Flours & Grains",
     description: "Freshly ground flours and wholesome grains for your daily needs.",
-    image: "../assets/astro.svg/rajdhani-besan.png"
+    image: rajdhani_besan
   },
   {
     name: "Oils & Ghee",
     description: "Pure cooking oils and traditional ghee for authentic flavor.",
-    image: "../assets/astro.svg/p-mark.png"
+    image: p_mark
   },
   {
     name: "Spices & Masalas",
     description: "Authentic Elephant Masalas and other premium spice brands.",
-    image: "../assets/astro.svg/elephant.png"
-  },
-  {
-    name: "Cleaning Products",
-    description: "Woosh Washing Powder and other household cleaning essentials.",
-    image: "../assets/astro.svg/rajdhani.png"
+    image: elephant
   },
   {
     name: "Packaged Foods",
     description: "Quality snacks, biscuits, and other packaged food items.",
-    image: "../assets/astro.svg/rajdhani.png"
+    image: rajdhani
   }
 ];
 
 const constructionProducts = [
   {
-    name: "ACC Cement",
+    name: "Bangur Cement",
     description: "Premium quality cement for all construction applications.",
-    image: "../assets/astro.svg/acc.png"
+    image: bangur
   },
   {
     name: "Kamdhenu TMT Bars",
     description: "High-strength TMT bars for reinforced concrete structures.",
-    image: "../assets/astro.svg/Kamdhenu-Group-Logo.svg"
-  },
-  {
-    name: "Bricks & Blocks",
-    description: "Quality bricks and concrete blocks for durable construction.",
-    image: "../assets/astro.svg/bangur.png"
-  },
-  {
-    name: "Sand & Aggregate",
-    description: "Construction-grade sand and aggregates for various applications.",
-    image: "../assets/astro.svg/bangur.png"
-  },
-  {
-    name: "Paints & Finishes",
-    description: "Interior and exterior paints for beautiful, lasting finishes.",
-    image: "../assets/astro.svg/bangur.png"
-  },
-  {
-    name: "Hardware & Tools",
-    description: "Essential hardware items and tools for construction projects.",
-    image: "../assets/astro.svg/bangur.png"
+    image: Kamdhenu
   }
 ];
 
 const cattleFeedProducts = [
   {
-    name: "Nutricana Premium Feed",
+    name: "Premium Feed",
     description: "Premium quality cattle feed for optimal nutrition and growth.",
-    image: "../assets/astro.svg/cattle-feed.png"
-  },
-  {
-    name: "Dairy Special Feed",
-    description: "Specialized feed for dairy cattle to enhance milk production.",
-    image: "../assets/astro.svg/cattle-feed.png"
+    image: cattle_feed
   },
   {
     name: "Calf Growth Formula",
     description: "Nutritionally balanced feed for healthy calf development.",
-    image: "../assets/astro.svg/cattle-feed.png"
+    image: cattle_feed
   },
-  {
-    name: "Mineral Mixtures",
-    description: "Essential mineral supplements for cattle health and productivity.",
-    image: "../assets/astro.svg/cattle-feed.png"
-  },
-  {
-    name: "Fodder Seeds",
-    description: "Quality seeds for growing nutritious fodder for livestock.",
-    image: "../assets/astro.svg/cattle-feed.png"
-  },
-  {
-    name: "Cattle Health Products",
-    description: "Supplements and health products for cattle well-being.",
-    image: "../assets/astro.svg/cattle-feed.png"
-  }
 ];
 ---
 

@@ -6,58 +6,67 @@ import BrandLogos from '../components/BrandLogos.astro';
 import SpecialOffers from '../components/SpecialOffers.astro';
 import Testimonials from '../components/Testimonials.astro';
 import LocationMap from '../components/LocationMap.astro';
+import pulses from '../assets/pulses.png'
+import spices from '../assets/spices.png'
+import cleaning from '../assets/cleaning.png'
+import cement from '../assets/cement.png';
+import tmt from '../assets/tmt.png'
+import pipe from '../assets/pipe.png'
+import kaka from '../assets/kaka.png'
+import feed from '../assets/feed.png'
+import bran from '../assets/bran.png'
 
 const groceryProducts = [
   {
     name: "Quality Groceries",
     description: "Premium grocery items for daily needs including rice, pulses, flour, and more.",
-    image: "https://images.pexels.com/photos/3001035/pexels-photo-3001035.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+    image: pulses
   },
   {
     name: "Branded Spices",
     description: "Authentic spices including Elephant Masalas for traditional Himachali recipes.",
-    image: "https://images.pexels.com/photos/1435904/pexels-photo-1435904.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+    image:spices
   },
   {
     name: "Cleaning Products",
     description: "Full range of cleaning products including Woosh Washing Powder for superior cleaning.",
-    image: "https://images.pexels.com/photos/4239013/pexels-photo-4239013.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+    image: cleaning
   }
 ];
 
 const constructionProducts = [
   {
-    name: "ACC Cement",
+    name: "Cement",
     description: "High-quality cement for all your construction needs from foundation to finishing.",
-    image: "https://images.pexels.com/photos/544966/pexels-photo-544966.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+    image: cement
   },
   {
-    name: "Kamdhenu TMT Bars",
+    name: "TMT Bars",
     description: "Superior strength TMT bars for reinforcement, ensuring structural integrity.",
-    image: "https://images.pexels.com/photos/2219024/pexels-photo-2219024.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+    image: tmt
   },
   {
-    name: "Building Materials",
-    description: "Complete range of building materials including bricks, sand, aggregate, and more.",
-    image: "https://images.pexels.com/photos/2219048/pexels-photo-2219048.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+    name: "Structural Steels",
+    description: "Complete range of strutural steel materials including angles, channels , pipes and many more",
+    image: pipe
   }
 ];
 
 const cattleFeedProducts = [
   {
-    name: "Nutricana Cattle Feed",
+    name: "Cattle Feed",
     description: "Premium quality cattle feed for optimal nutrition and growth for your livestock.",
-    image: "https://images.pexels.com/photos/235725/pexels-photo-235725.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+    image: feed
   },
   {
-    name: "Mineral Mixtures",
+    name: "Premium Quality Khal-Binola",
     description: "Essential mineral supplements to ensure your cattle's health and productivity.",
-    image: "https://images.pexels.com/photos/162801/cows-dairy-farm-milk-162801.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+    image:kaka
   },
   {
-    name: "Feed Supplements",
-    description: "Specialized supplements for dairy farmers to enhance milk production and quality.",
-    image: "https://images.pexels.com/photos/735968/pexels-photo-735968.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+    name: "Chokher",
+    description: "Special Quality of Chokher",
+    image: bran
   }
 ];
 ---
