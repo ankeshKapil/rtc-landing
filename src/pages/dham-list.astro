@@ -142,12 +142,6 @@ import Layout from "../layouts/Layout.astro";
         flex-grow: 1;
     }
 
-    th:first-child, td:first-child {
-        min-width: 200px; /* Adjust this value as needed */
-        width: 50%; /* Make the first column take half the table width */
-    }
-
-
     /* Mobile responsive styles */
     @media (max-width: 768px) {
         .container {
@@ -275,7 +269,6 @@ import Layout from "../layouts/Layout.astro";
                         <tr>
                             <th >वस्तु (Item)</th>
                             <th >मात्रा (Qty)</th>
-                            <th >कीमत (Price)</th>
                         </tr>
                         </thead>
                         <tbody id="grainsPulsesBody">
@@ -298,7 +291,6 @@ import Layout from "../layouts/Layout.astro";
                         <tr>
                             <th >वस्तु (Item)</th>
                             <th >मात्रा (Qty)</th>
-                            <th >कीमत (Price)</th>
                         </tr>
                         </thead>
                         <tbody id="spicesSeasoningsBody">
@@ -322,7 +314,6 @@ import Layout from "../layouts/Layout.astro";
                         <tr>
                             <th >वस्तु (Item)</th>
                             <th >मात्रा (Qty)</th>
-                            <th >कीमत (Price)</th>
                         </tr>
                         </thead>
                         <tbody id="oilsGheeBody">
@@ -346,7 +337,6 @@ import Layout from "../layouts/Layout.astro";
                         <tr>
                             <th >वस्तु (Item)</th>
                             <th >मात्रा (Qty)</th>
-                            <th >कीमत (Price)</th>
                         </tr>
                         </thead>
                         <tbody id="dryFruitsNutsBody">
@@ -370,7 +360,6 @@ import Layout from "../layouts/Layout.astro";
                         <tr>
                             <th >वस्तु (Item)</th>
                             <th >मात्रा (Qty)</th>
-                            <th >कीमत (Price)</th>
                         </tr>
                         </thead>
                         <tbody id="floursPowdersBody">
@@ -394,7 +383,6 @@ import Layout from "../layouts/Layout.astro";
                         <tr>
                             <th >वस्तु (Item)</th>
                             <th >मात्रा (Qty)</th>
-                            <th >कीमत (Price)</th>
                         </tr>
                         </thead>
                         <tbody id="bakingLeaveningAgentsBody">
@@ -418,7 +406,6 @@ import Layout from "../layouts/Layout.astro";
                         <tr>
                             <th >वस्तु (Item)</th>
                             <th >मात्रा (Qty)</th>
-                            <th >कीमत (Price)</th>
                         </tr>
                         </thead>
                         <tbody id="sweetenersBody">
@@ -442,7 +429,6 @@ import Layout from "../layouts/Layout.astro";
                         <tr>
                             <th >वस्तु (Item)</th>
                             <th >मात्रा (Qty)</th>
-                            <th >कीमत (Price)</th>
                         </tr>
                         </thead>
                         <tbody id="dairyProductsBody">
@@ -466,7 +452,6 @@ import Layout from "../layouts/Layout.astro";
                         <tr>
                             <th >वस्तु (Item)</th>
                             <th >मात्रा (Qty)</th>
-                            <th >कीमत (Price)</th>
                         </tr>
                         </thead>
                         <tbody id="vegetablesFruitsBody">
@@ -490,7 +475,6 @@ import Layout from "../layouts/Layout.astro";
                         <tr>
                             <th >वस्तु (Item)</th>
                             <th >मात्रा (Qty)</th>
-                            <th >कीमत (Price)</th>
                         </tr>
                         </thead>
                         <tbody id="saucesCondimentsBody">
@@ -514,7 +498,6 @@ import Layout from "../layouts/Layout.astro";
                         <tr>
                             <th >वस्तु (Item)</th>
                             <th >मात्रा (Qty)</th>
-                            <th >कीमत (Price)</th>
                         </tr>
                         </thead>
                         <tbody id="otherItemsBody">
@@ -673,7 +656,8 @@ import Layout from "../layouts/Layout.astro";
         ]
     };
 
-    function addItemRow(tbodyElement, itemName = '', itemQty = '', itemPrice = '', placeholderText = 'Enter item name', showRemoveButton = false) {
+    function addItemRow(tbodyElement, itemName = '', itemQty = '', itemPrice = '',
+                        placeholderText = 'Enter item name', showRemoveButton = false) {
         let newRow = document.createElement('tr');
         newRow.innerHTML = `
                 <td class="category-row">
@@ -682,8 +666,7 @@ import Layout from "../layouts/Layout.astro";
                         ${showRemoveButton ? `<button onclick="removeItemRow(this)" class="add-remove-btn minus no-print">&times;</button>` : ''}
                     </div>
                 </td>
-                <td class="category-row"><input type="text" style="border: 1px solid #cbd5e1" value="${itemQty}"></td>
-                <td class="category-row"><input type="text" style="border: 1px solid #cbd5e1" value="${itemPrice}"></td>
+                <td class="category-row"><input type="text" style="border: 1px solid #cbd5e1;width: 100%" value="${itemQty}"></td>
             `;
         tbodyElement.appendChild(newRow);
     }
