@@ -11,24 +11,33 @@ import Layout from "../layouts/Layout.astro";
         padding: 0;
     }
     .container {
+        width: 100%;
         max-width: 210mm; /* A4 width for print consideration */
-        margin: 20mm auto; /* Margins for print */
-        padding: 15mm;
+        margin: 10px auto; /* Reduced margins for mobile */
+        padding: 15px; /* Reduced padding for mobile */
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for screen view */
         background-color: #ffffff;
         border-radius: 10px; /* Rounded corners for the main container */
     }
+    /* Table wrapper for horizontal scrolling on mobile */
+    .table-responsive {
+        width: 100%;
+        overflow-x: auto;
+        margin-bottom: 15px;
+        -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+    }
+
     table {
         width: 100%;
         border-collapse: collapse;
         margin-top: 10px; /* Reduced margin for compactness */
-        margin-bottom: 15px; /* Space between tables/categories */
     }
+
     th, td {
         border: 1px solid #e2e8f0; /* Light gray border */
-        padding: 6px 8px; /* Reduced padding for compactness */
+        padding: 8px 10px; /* Slightly increased padding for touch */
         text-align: left;
-        font-size: 0.85rem; /* Slightly smaller font for compactness */
+        font-size: 0.9rem; /* Slightly larger for mobile readability */
     }
     th {
         background-color: #f8fafc; /* Lighter background for headers */
@@ -73,20 +82,23 @@ import Layout from "../layouts/Layout.astro";
         display: flex;
         align-items: center;
         gap: 10px;
+        flex-wrap: wrap; /* Allow wrapping on small screens */
     }
     .organizer-info label {
         font-weight: 600;
         color: #334155;
-        white-space: nowrap;
+        white-space: normal; /* Allow text to wrap */
+        min-width: 150px; /* Minimum width for label */
     }
     input {
         flex-grow: 1;
         border: 1px solid #cbd5e1;
-        padding: 8px 12px;
+        padding: 10px 12px; /* Slightly larger padding for touch */
         border-radius: 6px;
-        font-size: 0.9rem;
+        font-size: 1rem; /* Slightly larger font for mobile readability */
         color: #475569;
         background-color: #f8fafc;
+        min-width: 0; /* Allow input to shrink below its content size */
     }
 
     /* Buttons for adding/removing rows */
@@ -94,8 +106,8 @@ import Layout from "../layouts/Layout.astro";
         background-color: #2563eb; /* Blue */
         color: white;
         font-weight: bold;
-        width: 24px; /* Fixed width/height for circular button */
-        height: 24px;
+        width: 32px; /* Increased size for better touch targets */
+        height: 32px; /* Increased size for better touch targets */
         border-radius: 9999px; /* Full rounded */
         display: flex;
         align-items: center;
@@ -105,7 +117,7 @@ import Layout from "../layouts/Layout.astro";
         cursor: pointer;
         border: none; /* Remove default button border */
         line-height: 1; /* Adjust line height for better centering of text */
-        font-size: 1rem;
+        font-size: 1.2rem; /* Larger font size */
     }
     .add-remove-btn:hover {
         background-color: #1d4ed8; /* Darker blue on hover */
@@ -128,6 +140,67 @@ import Layout from "../layouts/Layout.astro";
     }
     .item-row-controls input {
         flex-grow: 1;
+    }
+
+    th:first-child, td:first-child {
+        min-width: 200px; /* Adjust this value as needed */
+        width: 50%; /* Make the first column take half the table width */
+    }
+
+
+    /* Mobile responsive styles */
+    @media (max-width: 768px) {
+        .container {
+            padding: 10px;
+            margin: 0;
+            border-radius: 0;
+            box-shadow: none;
+        }
+
+        .header-section h1 {
+            font-size: 1.5rem;
+        }
+
+        .header-section h2 {
+            font-size: 1.3rem;
+        }
+
+        .header-section p {
+            font-size: 0.8rem;
+        }
+
+        .organizer-info {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .organizer-info label {
+            margin-bottom: 5px;
+        }
+
+        .organizer-info input {
+            width: 100%;
+        }
+
+        /* Make buttons full width on mobile */
+        .text-right .bg-blue-500 {
+            width: 100%;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+    }
+
+    /* Small mobile devices */
+    @media (max-width: 480px) {
+        th, td {
+            padding: 6px 8px;
+            font-size: 0.8rem;
+        }
+
+        .category-row {
+            font-size: 0.85rem;
+            padding: 6px;
+        }
     }
 
     /* Print specific styles */
@@ -187,245 +260,267 @@ import Layout from "../layouts/Layout.astro";
             </div>
 
             <div>
-                <table class="rounded-lg overflow-hidden">
-                    <thead>
-                    <tr>
-                        <th colspan="3" class="category-row">
-                            <div class="flex items-center justify-center gap-2">
-                                <span>1. Grains & Pulses (दालें और अनाज)</span>
-                                <button onclick="addDynamicItemRow(this, 'Item')" class="add-remove-btn no-print">+
-                                </button>
-                            </div>
-                        </th>
-                    </tr>
-                    <tr>
-                        <th class="w-1/2">वस्तु (Item)</th>
-                        <th class="w-1/4">मात्रा (Qty)</th>
-                        <th class="w-1/4">कीमत (Price)</th>
-                    </tr>
-                    </thead>
-                    <tbody id="grainsPulsesBody">
-                    </tbody>
-                </table>
+                <div class="table-responsive">
+                    <table class="rounded-lg table-auto">
+                        <thead>
+                        <tr>
+                            <th colspan="3" class="category-row">
+                                <div class="flex items-center justify-center gap-2">
+                                    <span>1. Grains & Pulses (दालें और अनाज)</span>
+                                    <button onclick="addDynamicItemRow(this, 'Item')" class="add-remove-btn no-print">+
+                                    </button>
+                                </div>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th >वस्तु (Item)</th>
+                            <th >मात्रा (Qty)</th>
+                            <th >कीमत (Price)</th>
+                        </tr>
+                        </thead>
+                        <tbody id="grainsPulsesBody">
+                        </tbody>
+                    </table>
+                </div>
 
-                <table class="rounded-lg overflow-hidden">
-                    <thead>
-                    <tr>
-                        <th colspan="3" class="category-row">
-                            <div class="flex items-center justify-center gap-2">
-                                <span>2. Spices & Seasonings (मसाले और सीज़निंग)</span>
-                                <button onclick="addDynamicItemRow(this, 'Spice')" class="add-remove-btn no-print">+
-                                </button>
-                            </div>
-                        </th>
-                    </tr>
-                    <tr>
-                        <th class="w-1/2">वस्तु (Item)</th>
-                        <th class="w-1/4">मात्रा (Qty)</th>
-                        <th class="w-1/4">कीमत (Price)</th>
-                    </tr>
-                    </thead>
-                    <tbody id="spicesSeasoningsBody">
-                    </tbody>
-                </table>
+                <div class="table-responsive">
+                    <table class="rounded-lg table-auto">
+                        <thead>
+                        <tr>
+                            <th colspan="3" class="category-row">
+                                <div class="flex items-center justify-center gap-2">
+                                    <span>2. Spices & Seasonings (मसाले और सीज़निंग)</span>
+                                    <button onclick="addDynamicItemRow(this, 'Spice')" class="add-remove-btn no-print">+
+                                    </button>
+                                </div>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th >वस्तु (Item)</th>
+                            <th >मात्रा (Qty)</th>
+                            <th >कीमत (Price)</th>
+                        </tr>
+                        </thead>
+                        <tbody id="spicesSeasoningsBody">
+                        </tbody>
+                    </table>
+                </div>
 
-                <table class="rounded-lg overflow-hidden">
-                    <thead>
-                    <tr>
-                        <th colspan="3" class="category-row">
-                            <div class="flex items-center justify-center gap-2">
-                                <span>3. Oils & Ghee (तेल और घी)</span>
-                                <button onclick="addDynamicItemRow(this, 'Oil/Ghee')" class="add-remove-btn no-print">
-                                    +
-                                </button>
-                            </div>
-                        </th>
-                    </tr>
-                    <tr>
-                        <th class="w-1/2">वस्तु (Item)</th>
-                        <th class="w-1/4">मात्रा (Qty)</th>
-                        <th class="w-1/4">कीमत (Price)</th>
-                    </tr>
-                    </thead>
-                    <tbody id="oilsGheeBody">
-                    </tbody>
-                </table>
+                <div class="table-responsive">
+                    <table class="rounded-lg table-auto">
+                        <thead>
+                        <tr>
+                            <th colspan="3" class="category-row">
+                                <div class="flex items-center justify-center gap-2">
+                                    <span>3. Oils & Ghee (तेल और घी)</span>
+                                    <button onclick="addDynamicItemRow(this, 'Oil/Ghee')" class="add-remove-btn no-print">
+                                        +
+                                    </button>
+                                </div>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th >वस्तु (Item)</th>
+                            <th >मात्रा (Qty)</th>
+                            <th >कीमत (Price)</th>
+                        </tr>
+                        </thead>
+                        <tbody id="oilsGheeBody">
+                        </tbody>
+                    </table>
+                </div>
 
-                <table class="rounded-lg overflow-hidden">
-                    <thead>
-                    <tr>
-                        <th colspan="3" class="category-row">
-                            <div class="flex items-center justify-center gap-2">
-                                <span>4. Dry Fruits & Nuts (मेवे)</span>
-                                <button onclick="addDynamicItemRow(this, 'Dry Fruit/Nut')"
-                                        class="add-remove-btn no-print">+
-                                </button>
-                            </div>
-                        </th>
-                    </tr>
-                    <tr>
-                        <th class="w-1/2">वस्तु (Item)</th>
-                        <th class="w-1/4">मात्रा (Qty)</th>
-                        <th class="w-1/4">कीमत (Price)</th>
-                    </tr>
-                    </thead>
-                    <tbody id="dryFruitsNutsBody">
-                    </tbody>
-                </table>
+                <div class="table-responsive">
+                    <table class="rounded-lg table-auto">
+                        <thead>
+                        <tr>
+                            <th colspan="3" class="category-row">
+                                <div class="flex items-center justify-center gap-2">
+                                    <span>4. Dry Fruits & Nuts (मेवे)</span>
+                                    <button onclick="addDynamicItemRow(this, 'Dry Fruit/Nut')"
+                                            class="add-remove-btn no-print">+
+                                    </button>
+                                </div>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th >वस्तु (Item)</th>
+                            <th >मात्रा (Qty)</th>
+                            <th >कीमत (Price)</th>
+                        </tr>
+                        </thead>
+                        <tbody id="dryFruitsNutsBody">
+                        </tbody>
+                    </table>
+                </div>
 
-                <table class="rounded-lg overflow-hidden">
-                    <thead>
-                    <tr>
-                        <th colspan="3" class="category-row">
-                            <div class="flex items-center justify-center gap-2">
-                                <span>5. Flours & Powders (आटा और पाउडर)</span>
-                                <button onclick="addDynamicItemRow(this, 'Flour/Powder')"
-                                        class="add-remove-btn no-print">+
-                                </button>
-                            </div>
-                        </th>
-                    </tr>
-                    <tr>
-                        <th class="w-1/2">वस्तु (Item)</th>
-                        <th class="w-1/4">मा मात्रा (Qty)</th>
-                        <th class="w-1/4">कीमत (Price)</th>
-                    </tr>
-                    </thead>
-                    <tbody id="floursPowdersBody">
-                    </tbody>
-                </table>
+                <div class="table-responsive">
+                    <table class="rounded-lg table-auto">
+                        <thead>
+                        <tr>
+                            <th colspan="3" class="category-row">
+                                <div class="flex items-center justify-center gap-2">
+                                    <span>5. Flours & Powders (आटा और पाउडर)</span>
+                                    <button onclick="addDynamicItemRow(this, 'Flour/Powder')"
+                                            class="add-remove-btn no-print">+
+                                    </button>
+                                </div>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th >वस्तु (Item)</th>
+                            <th >मात्रा (Qty)</th>
+                            <th >कीमत (Price)</th>
+                        </tr>
+                        </thead>
+                        <tbody id="floursPowdersBody">
+                        </tbody>
+                    </table>
+                </div>
 
-                <table class="rounded-lg overflow-hidden">
-                    <thead>
-                    <tr>
-                        <th colspan="3" class="category-row">
-                            <div class="flex items-center justify-center gap-2">
-                                <span>6. Baking & Leavening Agents (बेकिंग सामग्री)</span>
-                                <button onclick="addDynamicItemRow(this, 'Baking Item')"
-                                        class="add-remove-btn no-print">+
-                                </button>
-                            </div>
-                        </th>
-                    </tr>
-                    <tr>
-                        <th class="w-1/2">वस्तु (Item)</th>
-                        <th class="w-1/4">मात्रा (Qty)</th>
-                        <th class="w-1/4">की कीमत (Price)</th>
-                    </tr>
-                    </thead>
-                    <tbody id="bakingLeaveningAgentsBody">
-                    </tbody>
-                </table>
+                <div class="table-responsive">
+                    <table class="rounded-lg table-auto">
+                        <thead>
+                        <tr>
+                            <th colspan="3" class="category-row">
+                                <div class="flex items-center justify-center gap-2">
+                                    <span>6. Baking & Leavening Agents (बेकिंग सामग्री)</span>
+                                    <button onclick="addDynamicItemRow(this, 'Baking Item')"
+                                            class="add-remove-btn no-print">+
+                                    </button>
+                                </div>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th >वस्तु (Item)</th>
+                            <th >मात्रा (Qty)</th>
+                            <th >कीमत (Price)</th>
+                        </tr>
+                        </thead>
+                        <tbody id="bakingLeaveningAgentsBody">
+                        </tbody>
+                    </table>
+                </div>
 
-                <table class="rounded-lg overflow-hidden">
-                    <thead>
-                    <tr>
-                        <th colspan="3" class="category-row">
-                            <div class="flex items-center justify-center gap-2">
-                                <span>7. Sweeteners (मिठास)</span>
-                                <button onclick="addDynamicItemRow(this, 'Sweetener')" class="add-remove-btn no-print">
-                                    +
-                                </button>
-                            </div>
-                        </th>
-                    </tr>
-                    <tr>
-                        <th class="w-1/2">वस्तु (Item)</th>
-                        <th class="w-1/4">मात्रा (Qty)</th>
-                        <th class="w-1/4">कीमत (Price)</th>
-                    </tr>
-                    </thead>
-                    <tbody id="sweetenersBody">
-                    </tbody>
-                </table>
+                <div class="table-responsive">
+                    <table class="rounded-lg table-auto">
+                        <thead>
+                        <tr>
+                            <th colspan="3" class="category-row">
+                                <div class="flex items-center justify-center gap-2">
+                                    <span>7. Sweeteners (मिठास)</span>
+                                    <button onclick="addDynamicItemRow(this, 'Sweetener')" class="add-remove-btn no-print">
+                                        +
+                                    </button>
+                                </div>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th >वस्तु (Item)</th>
+                            <th >मात्रा (Qty)</th>
+                            <th >कीमत (Price)</th>
+                        </tr>
+                        </thead>
+                        <tbody id="sweetenersBody">
+                        </tbody>
+                    </table>
+                </div>
 
-                <table class="rounded-lg overflow-hidden">
-                    <thead>
-                    <tr>
-                        <th colspan="3" class="category-row">
-                            <div class="flex items-center justify-center gap-2">
-                                <span>8. Dairy Products (डेयरी उत्पाद)</span>
-                                <button onclick="addDynamicItemRow(this, 'Dairy Product')"
-                                        class="add-remove-btn no-print">+
-                                </button>
-                            </div>
-                        </th>
-                    </tr>
-                    <tr>
-                        <th class="w-1/2">वस्तु (Item)</th>
-                        <th class="w-1/4">मात्रा (Qty)</th>
-                        <th class="w-1/4">कीमत (Price)</th>
-                    </tr>
-                    </thead>
-                    <tbody id="dairyProductsBody">
-                    </tbody>
-                </table>
+                <div class="table-responsive">
+                    <table class="rounded-lg table-auto">
+                        <thead>
+                        <tr>
+                            <th colspan="3" class="category-row">
+                                <div class="flex items-center justify-center gap-2">
+                                    <span>8. Dairy Products (डेयरी उत्पाद)</span>
+                                    <button onclick="addDynamicItemRow(this, 'Dairy Product')"
+                                            class="add-remove-btn no-print">+
+                                    </button>
+                                </div>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th >वस्तु (Item)</th>
+                            <th >मात्रा (Qty)</th>
+                            <th >कीमत (Price)</th>
+                        </tr>
+                        </thead>
+                        <tbody id="dairyProductsBody">
+                        </tbody>
+                    </table>
+                </div>
 
-                <table class="rounded-lg overflow-hidden">
-                    <thead>
-                    <tr>
-                        <th colspan="3" class="category-row">
-                            <div class="flex items-center justify-center gap-2">
-                                <span>9. Vegetables & Fruits (सब्ज़ियां और फल)</span>
-                                <button onclick="addDynamicItemRow(this, 'Vegetable/Fruit')"
-                                        class="add-remove-btn no-print">+
-                                </button>
-                            </div>
-                        </th>
-                    </tr>
-                    <tr>
-                        <th class="w-1/2">वस्तु (Item)</th>
-                        <th class="w-1/4">मात्रा (Qty)</th>
-                        <th class="w-1/4">कीमत (Price)</th>
-                    </tr>
-                    </thead>
-                    <tbody id="vegetablesFruitsBody">
-                    </tbody>
-                </table>
+                <div class="table-responsive">
+                    <table class="rounded-lg table-auto">
+                        <thead>
+                        <tr>
+                            <th colspan="3" class="category-row">
+                                <div class="flex items-center justify-center gap-2">
+                                    <span>9. Vegetables & Fruits (सब्ज़ियां और फल)</span>
+                                    <button onclick="addDynamicItemRow(this, 'Vegetable/Fruit')"
+                                            class="add-remove-btn no-print">+
+                                    </button>
+                                </div>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th >वस्तु (Item)</th>
+                            <th >मात्रा (Qty)</th>
+                            <th >कीमत (Price)</th>
+                        </tr>
+                        </thead>
+                        <tbody id="vegetablesFruitsBody">
+                        </tbody>
+                    </table>
+                </div>
 
-                <table class="rounded-lg overflow-hidden">
-                    <thead>
-                    <tr>
-                        <th colspan="3" class="category-row">
-                            <div class="flex items-center justify-center gap-2">
-                                <span>10. Sauces & Condiments (सॉस और चटनी)</span>
-                                <button onclick="addDynamicItemRow(this, 'Sauce/Condiment')"
-                                        class="add-remove-btn no-print">+
-                                </button>
-                            </div>
-                        </th>
-                    </tr>
-                    <tr>
-                        <th class="w-1/2">वस्तु (Item)</th>
-                        <th class="w-1/4">मात्रा (Qty)</th>
-                        <th class="w-1/4">कीमत (Price)</th>
-                    </tr>
-                    </thead>
-                    <tbody id="saucesCondimentsBody">
-                    </tbody>
-                </table>
+                <div class="table-responsive">
+                    <table class="rounded-lg table-auto">
+                        <thead>
+                        <tr>
+                            <th colspan="3" class="category-row">
+                                <div class="flex items-center justify-center gap-2">
+                                    <span>10. Sauces & Condiments (सॉस और चटनी)</span>
+                                    <button onclick="addDynamicItemRow(this, 'Sauce/Condiment')"
+                                            class="add-remove-btn no-print">+
+                                    </button>
+                                </div>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th >वस्तु (Item)</th>
+                            <th >मात्रा (Qty)</th>
+                            <th >कीमत (Price)</th>
+                        </tr>
+                        </thead>
+                        <tbody id="saucesCondimentsBody">
+                        </tbody>
+                    </table>
+                </div>
 
-                <table class="rounded-lg overflow-hidden">
-                    <thead>
-                    <tr>
-                        <th colspan="3" class="category-row">
-                            <div class="flex items-center justify-center gap-2">
-                                <span>11. Other Items (अन्य वस्तुएँ)</span>
-                                <button onclick="addDynamicItemRow(this, 'Other Item')" class="add-remove-btn no-print">
-                                    +
-                                </button>
-                            </div>
-                        </th>
-                    </tr>
-                    <tr>
-                        <th class="w-1/2">वस्तु (Item)</th>
-                        <th class="w-1/4">मात्रा (Qty)</th>
-                        <th class="w-1/4">कीमत (Price)</th>
-                    </tr>
-                    </thead>
-                    <tbody id="otherItemsBody">
-                    </tbody>
-                </table>
+                <div class="table-responsive">
+                    <table class="rounded-lg table-auto">
+                        <thead>
+                        <tr>
+                            <th colspan="3" class="category-row">
+                                <div class="flex items-center justify-center gap-2">
+                                    <span>11. Other Items (अन्य वस्तुएँ)</span>
+                                    <button onclick="addDynamicItemRow(this, 'Other Item')" class="add-remove-btn no-print">
+                                        +
+                                    </button>
+                                </div>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th >वस्तु (Item)</th>
+                            <th >मात्रा (Qty)</th>
+                            <th >कीमत (Price)</th>
+                        </tr>
+                        </thead>
+                        <tbody id="otherItemsBody">
+                        </tbody>
+                    </table>
+                </div>
             </div>
 
             <div class="mt-8 text-right text-gray-700">
@@ -442,9 +537,6 @@ import Layout from "../layouts/Layout.astro";
         </div>
     </section>
 </Layout>
-
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 
 <script is:inline>
