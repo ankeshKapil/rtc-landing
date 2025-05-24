@@ -109,7 +109,7 @@ import Layout from "../layouts/Layout.astro";
         width: 32px; /* Increased size for better touch targets */
         height: 32px; /* Increased size for better touch targets */
         border-radius: 9999px; /* Full rounded */
-        display: flex;
+        display: inline-flex; /* Changed to inline-flex */
         align-items: center;
         justify-content: center;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
@@ -118,26 +118,32 @@ import Layout from "../layouts/Layout.astro";
         border: none; /* Remove default button border */
         line-height: 1; /* Adjust line height for better centering of text */
         font-size: 1.2rem; /* Larger font size */
+        padding: 0; /* Ensure no padding affects the circle shape */
     }
+
     .add-remove-btn:hover {
         background-color: #1d4ed8; /* Darker blue on hover */
         transform: scale(1.1);
     }
+
     .add-remove-btn.minus {
         background-color: #dc2626; /* Red for minus button */
         margin-left: 8px; /* Space from input field */
-        font-size: 1.2rem; /* Slightly larger for minus */
+        font-size: 1.5rem; /* Slightly larger for minus */
     }
+
     .add-remove-btn.minus:hover {
         background-color: #b91c1c; /* Darker red on hover */
     }
+
+    /* Item row controls styling fix */
     .item-row-controls {
         display: flex;
         align-items: center;
-        justify-content: space-between; /* Space between input and button */
         width: 100%;
-        border: 1px solid #cbd5e1;
+        border: none; /* Remove border if it's causing issues */
     }
+
     .item-row-controls input {
         flex-grow: 1;
     }
@@ -662,8 +668,8 @@ import Layout from "../layouts/Layout.astro";
         newRow.innerHTML = `
                 <td class="category-row">
                     <div class="item-row-controls">
-                        <input type="text" value="${itemName}" placeholder="${placeholderText}" style="border: 1px solid #cbd5e1; width: 100%"></input>
-                        ${showRemoveButton ? `<button onclick="removeItemRow(this)" class="add-remove-btn minus no-print">&times;</button>` : ''}
+                        <input type="text" value="${itemName}" placeholder="${placeholderText}" style="border: 1px solid #cbd5e1; width: 80%"></input>
+                        ${showRemoveButton ? `<button type="button" onclick="removeItemRow(this)" class="text-xs px-2 py-1 bg-red-700 hover:bg-red-300 text-white rounded flex items-center justify-center inline no-print"> &times; </button>` : ''}
                     </div>
                 </td>
                 <td class="category-row"><input type="text" style="border: 1px solid #cbd5e1;width: 100%" value="${itemQty}"></td>
