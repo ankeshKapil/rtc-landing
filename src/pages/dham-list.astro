@@ -1,0 +1,637 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+---
+<style>
+    body {
+        font-family: 'Inter', sans-serif; /* Using Inter font */
+        -webkit-print-color-adjust: exact; /* Ensures background colors are printed */
+        color-adjust: exact;
+        margin: 0;
+        padding: 0;
+    }
+    .container {
+        max-width: 210mm; /* A4 width for print consideration */
+        margin: 20mm auto; /* Margins for print */
+        padding: 15mm;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for screen view */
+        background-color: #ffffff;
+        border-radius: 10px; /* Rounded corners for the main container */
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px; /* Reduced margin for compactness */
+        margin-bottom: 15px; /* Space between tables/categories */
+    }
+    th, td {
+        border: 1px solid #e2e8f0; /* Light gray border */
+        padding: 6px 8px; /* Reduced padding for compactness */
+        text-align: left;
+        font-size: 0.85rem; /* Slightly smaller font for compactness */
+    }
+    th {
+        background-color: #f8fafc; /* Lighter background for headers */
+        font-weight: 600;
+        color: #334155;
+        text-transform: uppercase;
+    }
+    td input[type="text"] {
+        width: 100%;
+        border: none;
+        outline: none;
+        padding: 0;
+        margin: 0;
+        background-color: transparent;
+        font-size: inherit;
+    }
+    .category-row {
+        background-color: #e0f2fe; /* Light blue for category headers */
+        font-weight: 700;
+        color: #0c4a6e;
+        text-align: center;
+        font-size: 0.95rem; /* Slightly smaller font for compactness */
+        padding: 8px; /* Reduced padding for compactness */
+    }
+    .header-section {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+    .header-section h1 {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: #1e293b;
+        margin-bottom: 5px;
+    }
+    .header-section p {
+        font-size: 0.85rem;
+        color: #64748b;
+        line-height: 1.4;
+    }
+    .organizer-info {
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    .organizer-info label {
+        font-weight: 600;
+        color: #334155;
+        white-space: nowrap;
+    }
+    input {
+        flex-grow: 1;
+        border: 1px solid #cbd5e1;
+        padding: 8px 12px;
+        border-radius: 6px;
+        font-size: 0.9rem;
+        color: #475569;
+        background-color: #f8fafc;
+    }
+
+    /* Buttons for adding/removing rows */
+    .add-remove-btn {
+        background-color: #2563eb; /* Blue */
+        color: white;
+        font-weight: bold;
+        width: 24px; /* Fixed width/height for circular button */
+        height: 24px;
+        border-radius: 9999px; /* Full rounded */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        transition: all 0.15s ease-in-out;
+        cursor: pointer;
+        border: none; /* Remove default button border */
+        line-height: 1; /* Adjust line height for better centering of text */
+        font-size: 1rem;
+    }
+    .add-remove-btn:hover {
+        background-color: #1d4ed8; /* Darker blue on hover */
+        transform: scale(1.1);
+    }
+    .add-remove-btn.minus {
+        background-color: #dc2626; /* Red for minus button */
+        margin-left: 8px; /* Space from input field */
+        font-size: 1.2rem; /* Slightly larger for minus */
+    }
+    .add-remove-btn.minus:hover {
+        background-color: #b91c1c; /* Darker red on hover */
+    }
+    .item-row-controls {
+        display: flex;
+        align-items: center;
+        justify-content: space-between; /* Space between input and button */
+        width: 100%;
+        border: 1px solid #cbd5e1;
+    }
+    .item-row-controls input {
+        flex-grow: 1;
+    }
+
+    /* Print specific styles */
+    @media print {
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            box-shadow: none;
+            margin: 0;
+            padding: 10mm; /* Smaller padding for print */
+            width: 100%;
+            height: auto;
+            min-height: 297mm; /* A4 height */
+            display: block; /* Ensure block display for print flow */
+        }
+        table, th, td {
+            border-color: #94a3b8 !important; /* Darker borders for better print visibility */
+        }
+        /* Hide the print button and add/remove buttons when printing */
+        .no-print {
+            display: none !important;
+        }
+    }
+</style>
+<Layout
+        title="Himachali Dham Items"
+        description="Please Use this list to fill up quantities for your Dham program"
+>
+    <section class="py-12 bg-neutral-50" id="dhamList">
+        <div class="container">
+            <div class="text-right mb-4 no-print">
+                <button onclick="window.print()"
+                        class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:scale-105">
+                    Print / Save as PDF
+                </button>
+            </div>
+
+            <div class="header-section">
+                <p class="text-xs text-gray-500 mb-2">GSTIN:02AEYPK3299P1ZJ</p>
+                <p class="text-sm text-gray-600 mb-4">वक्रतुण्ड महाकाय सूर्यकोटि समप्रभ । निर्विघ्नं कुरु मे देव
+                    सर्वकार्येषु सर्वदा ॥</p>
+                <h1 class="text-3xl font-bold text-gray-800">Roop Trading Company</h1>
+                <p class="text-sm text-gray-700">VPO Chowki Jamwalan, Tehsil and District Hamirpur, Himachal Pradesh
+                    177020</p>
+                <p class="text-sm text-gray-700">Contact At:- 8219 838485, 7018657685, rooptrading85@gmail.com</p>
+                <p class="text-lg font-semibold text-gray-800 mt-4">किराना की थोक दुकान</p>
+                <h2 class="text-2xl font-bold text-blue-700 mt-6 mb-4">हिमाचली धाम के लिए आवश्यक वस्तुओं की सूचि</h2>
+            </div>
+
+            <div class="organizer-info">
+                <label for="organizerName" class="text-gray-700">आयोजक का नाम (Organizer's Name):</label>
+                <input type="text" id="organizerName" name="organizerName" class="flex-grow"
+                       placeholder="Enter organizer's name here">
+            </div>
+
+            <div>
+                <table class="rounded-lg overflow-hidden">
+                    <thead>
+                    <tr>
+                        <th colspan="3" class="category-row">
+                            <div class="flex items-center justify-center gap-2">
+                                <span>1. Grains & Pulses (दालें और अनाज)</span>
+                                <button onclick="addDynamicItemRow(this, 'Item')" class="add-remove-btn no-print">+
+                                </button>
+                            </div>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th class="w-1/2">वस्तु (Item)</th>
+                        <th class="w-1/4">मात्रा (Qty)</th>
+                        <th class="w-1/4">कीमत (Price)</th>
+                    </tr>
+                    </thead>
+                    <tbody id="grainsPulsesBody">
+                    </tbody>
+                </table>
+
+                <table class="rounded-lg overflow-hidden">
+                    <thead>
+                    <tr>
+                        <th colspan="3" class="category-row">
+                            <div class="flex items-center justify-center gap-2">
+                                <span>2. Spices & Seasonings (मसाले और सीज़निंग)</span>
+                                <button onclick="addDynamicItemRow(this, 'Spice')" class="add-remove-btn no-print">+
+                                </button>
+                            </div>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th class="w-1/2">वस्तु (Item)</th>
+                        <th class="w-1/4">मात्रा (Qty)</th>
+                        <th class="w-1/4">कीमत (Price)</th>
+                    </tr>
+                    </thead>
+                    <tbody id="spicesSeasoningsBody">
+                    </tbody>
+                </table>
+
+                <table class="rounded-lg overflow-hidden">
+                    <thead>
+                    <tr>
+                        <th colspan="3" class="category-row">
+                            <div class="flex items-center justify-center gap-2">
+                                <span>3. Oils & Ghee (तेल और घी)</span>
+                                <button onclick="addDynamicItemRow(this, 'Oil/Ghee')" class="add-remove-btn no-print">
+                                    +
+                                </button>
+                            </div>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th class="w-1/2">वस्तु (Item)</th>
+                        <th class="w-1/4">मात्रा (Qty)</th>
+                        <th class="w-1/4">कीमत (Price)</th>
+                    </tr>
+                    </thead>
+                    <tbody id="oilsGheeBody">
+                    </tbody>
+                </table>
+
+                <table class="rounded-lg overflow-hidden">
+                    <thead>
+                    <tr>
+                        <th colspan="3" class="category-row">
+                            <div class="flex items-center justify-center gap-2">
+                                <span>4. Dry Fruits & Nuts (मेवे)</span>
+                                <button onclick="addDynamicItemRow(this, 'Dry Fruit/Nut')"
+                                        class="add-remove-btn no-print">+
+                                </button>
+                            </div>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th class="w-1/2">वस्तु (Item)</th>
+                        <th class="w-1/4">मात्रा (Qty)</th>
+                        <th class="w-1/4">कीमत (Price)</th>
+                    </tr>
+                    </thead>
+                    <tbody id="dryFruitsNutsBody">
+                    </tbody>
+                </table>
+
+                <table class="rounded-lg overflow-hidden">
+                    <thead>
+                    <tr>
+                        <th colspan="3" class="category-row">
+                            <div class="flex items-center justify-center gap-2">
+                                <span>5. Flours & Powders (आटा और पाउडर)</span>
+                                <button onclick="addDynamicItemRow(this, 'Flour/Powder')"
+                                        class="add-remove-btn no-print">+
+                                </button>
+                            </div>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th class="w-1/2">वस्तु (Item)</th>
+                        <th class="w-1/4">मा मात्रा (Qty)</th>
+                        <th class="w-1/4">कीमत (Price)</th>
+                    </tr>
+                    </thead>
+                    <tbody id="floursPowdersBody">
+                    </tbody>
+                </table>
+
+                <table class="rounded-lg overflow-hidden">
+                    <thead>
+                    <tr>
+                        <th colspan="3" class="category-row">
+                            <div class="flex items-center justify-center gap-2">
+                                <span>6. Baking & Leavening Agents (बेकिंग सामग्री)</span>
+                                <button onclick="addDynamicItemRow(this, 'Baking Item')"
+                                        class="add-remove-btn no-print">+
+                                </button>
+                            </div>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th class="w-1/2">वस्तु (Item)</th>
+                        <th class="w-1/4">मात्रा (Qty)</th>
+                        <th class="w-1/4">की कीमत (Price)</th>
+                    </tr>
+                    </thead>
+                    <tbody id="bakingLeaveningAgentsBody">
+                    </tbody>
+                </table>
+
+                <table class="rounded-lg overflow-hidden">
+                    <thead>
+                    <tr>
+                        <th colspan="3" class="category-row">
+                            <div class="flex items-center justify-center gap-2">
+                                <span>7. Sweeteners (मिठास)</span>
+                                <button onclick="addDynamicItemRow(this, 'Sweetener')" class="add-remove-btn no-print">
+                                    +
+                                </button>
+                            </div>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th class="w-1/2">वस्तु (Item)</th>
+                        <th class="w-1/4">मात्रा (Qty)</th>
+                        <th class="w-1/4">कीमत (Price)</th>
+                    </tr>
+                    </thead>
+                    <tbody id="sweetenersBody">
+                    </tbody>
+                </table>
+
+                <table class="rounded-lg overflow-hidden">
+                    <thead>
+                    <tr>
+                        <th colspan="3" class="category-row">
+                            <div class="flex items-center justify-center gap-2">
+                                <span>8. Dairy Products (डेयरी उत्पाद)</span>
+                                <button onclick="addDynamicItemRow(this, 'Dairy Product')"
+                                        class="add-remove-btn no-print">+
+                                </button>
+                            </div>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th class="w-1/2">वस्तु (Item)</th>
+                        <th class="w-1/4">मात्रा (Qty)</th>
+                        <th class="w-1/4">कीमत (Price)</th>
+                    </tr>
+                    </thead>
+                    <tbody id="dairyProductsBody">
+                    </tbody>
+                </table>
+
+                <table class="rounded-lg overflow-hidden">
+                    <thead>
+                    <tr>
+                        <th colspan="3" class="category-row">
+                            <div class="flex items-center justify-center gap-2">
+                                <span>9. Vegetables & Fruits (सब्ज़ियां और फल)</span>
+                                <button onclick="addDynamicItemRow(this, 'Vegetable/Fruit')"
+                                        class="add-remove-btn no-print">+
+                                </button>
+                            </div>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th class="w-1/2">वस्तु (Item)</th>
+                        <th class="w-1/4">मात्रा (Qty)</th>
+                        <th class="w-1/4">कीमत (Price)</th>
+                    </tr>
+                    </thead>
+                    <tbody id="vegetablesFruitsBody">
+                    </tbody>
+                </table>
+
+                <table class="rounded-lg overflow-hidden">
+                    <thead>
+                    <tr>
+                        <th colspan="3" class="category-row">
+                            <div class="flex items-center justify-center gap-2">
+                                <span>10. Sauces & Condiments (सॉस और चटनी)</span>
+                                <button onclick="addDynamicItemRow(this, 'Sauce/Condiment')"
+                                        class="add-remove-btn no-print">+
+                                </button>
+                            </div>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th class="w-1/2">वस्तु (Item)</th>
+                        <th class="w-1/4">मात्रा (Qty)</th>
+                        <th class="w-1/4">कीमत (Price)</th>
+                    </tr>
+                    </thead>
+                    <tbody id="saucesCondimentsBody">
+                    </tbody>
+                </table>
+
+                <table class="rounded-lg overflow-hidden">
+                    <thead>
+                    <tr>
+                        <th colspan="3" class="category-row">
+                            <div class="flex items-center justify-center gap-2">
+                                <span>11. Other Items (अन्य वस्तुएँ)</span>
+                                <button onclick="addDynamicItemRow(this, 'Other Item')" class="add-remove-btn no-print">
+                                    +
+                                </button>
+                            </div>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th class="w-1/2">वस्तु (Item)</th>
+                        <th class="w-1/4">मात्रा (Qty)</th>
+                        <th class="w-1/4">कीमत (Price)</th>
+                    </tr>
+                    </thead>
+                    <tbody id="otherItemsBody">
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="mt-8 text-right text-gray-700">
+                <p>वोटी का नाम एवं पता (Voti's Name & Address):</p>
+                <textarea class="w-full h-24 border border-gray-300 rounded-md p-2 mt-2"
+                          placeholder="Enter Voti's Name and Address here"></textarea>
+            </div>
+        </div>
+    </section>
+</Layout>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+<script is:inline>
+    const itemData = {
+        "grainsPulses": [
+            {"name": "माह दाल (Mah Dal)", "qty": "", "price": ""},
+            {"name": "सफ़ेद चना (White Chickpeas)", "qty": "", "price": ""},
+            {"name": "राजमां (Kidney Beans)", "qty": "", "price": ""},
+            {"name": "मूंगी दाल (Moong Dal)", "qty": "", "price": ""},
+            {"name": "धुले माह (Dhuli Mah Dal)", "qty": "", "price": ""},
+            {"name": "चना दाल (Chana Dal)", "qty": "", "price": ""},
+            {"name": "रोंगी (Cowpea)", "qty": "", "price": ""},
+            {"name": "काला चना (Black Chickpeas)", "qty": "", "price": ""},
+            {"name": "अरहर दाल (Arhar Dal / Toor Dal)", "qty": "", "price": ""},
+            {"name": "चावल (Rice)", "qty": "", "price": ""},
+            {"name": "मैक्रोनी (Macaroni)", "qty": "", "price": ""}
+        ],
+        "spicesSeasonings": [
+            {"name": "नमक (Salt)", "qty": "", "price": ""},
+            {"name": "हल्दी (Turmeric)", "qty": "", "price": ""},
+            {"name": "मिर्च पाउडर (Chilli Powder)", "qty": "", "price": ""},
+            {"name": "मिर्च साबुत (Whole Red Chillies)", "qty": "", "price": ""},
+            {"name": "जीरा पाउडर (Cumin Powder)", "qty": "", "price": ""},
+            {"name": "धनिया पाउडर (Coriander Powder)", "qty": "", "price": ""},
+            {"name": "काली मिर्च (Black Pepper)", "qty": "", "price": ""},
+            {"name": "दालचीनी (Cinnamon)", "qty": "", "price": ""},
+            {"name": "बड़ी इलाची (Black Cardamom)", "qty": "", "price": ""},
+            {"name": "छोटी इलाची (Green Cardamom)", "qty": "", "price": ""},
+            {"name": "लोंग (Cloves)", "qty": "", "price": ""},
+            {"name": "सुण्ड पाउडर (Dry Ginger Powder)", "qty": "", "price": ""},
+            {"name": "मेथी (Fenugreek)", "qty": "", "price": ""},
+            {"name": "सोया (Dill)", "qty": "", "price": ""},
+            {"name": "अजवाइन (Carom Seeds)", "qty": "", "price": ""},
+            {"name": "जायफल (Nutmeg)", "qty": "", "price": ""},
+            {"name": "जावित्री (Mace)", "qty": "", "price": ""},
+            {"name": "हींग (Asafoetida)", "qty": "", "price": ""},
+            {"name": "राइ (Mustard Seeds)", "qty": "", "price": ""},
+            {"name": "किचन किंग (Kitchen King Masala)", "qty": "", "price": ""},
+            {"name": "राजमाह मसाला (Rajmah Masala)", "qty": "", "price": ""},
+            {"name": "चना मसाला (Chana Masala)", "qty": "", "price": ""},
+            {"name": "देगी मिर्च (Degi Mirch)", "qty": "", "price": ""},
+            {"name": "कस्तूरी मैथी (Kasoori Methi)", "qty": "", "price": ""},
+            {"name": "सांभर मसाला (Sambhar Masala)", "qty": "", "price": ""},
+            {"name": "मगां", "qty": "", "price": ""},
+            {"name": "तेजपत्ता (Bay Leaf)", "qty": "", "price": ""},
+            {"name": "जीरा साबुत (Whole Cumin)", "qty": "", "price": ""},
+            {"name": "धनिया साबुत (Whole Coriander)", "qty": "", "price": ""},
+            {"name": "काला नमक (Black Salt)", "qty": "", "price": ""},
+            {"name": "चक्र फूल (Star Anise)", "qty": "", "price": ""},
+            {"name": "चाट मसाला (Chaat Masala)", "qty": "", "price": ""}
+        ],
+        "oilsGhee": [
+            {"name": "सरसों तेल (Mustard Oil)", "qty": "", "price": ""},
+            {"name": "रिफाइंड तेल (Refined Oil)", "qty": "", "price": ""},
+            {"name": "डालडा घी (Dalda Ghee / Vanaspati)", "qty": "", "price": ""},
+            {"name": "देशी घी (Desi Ghee / Clarified Butter)", "qty": "", "price": ""}
+        ],
+        "dryFruitsNuts": [
+            {"name": "गरी बूर (Desiccated Coconut)", "qty": "", "price": ""},
+            {"name": "दाख (Raisins)", "qty": "", "price": ""},
+            {"name": "काजू (Cashews)", "qty": "", "price": ""},
+            {"name": "बादाम गिरी (Almond Kernels)", "qty": "", "price": ""},
+            {"name": "छुआरे (Dry Dates)", "qty": "", "price": ""},
+            {"name": "चार मगज़ (Four Seeds Mix)", "qty": "", "price": ""}
+        ],
+        "floursPowders": [
+            {"name": "गेहूं का आटा (Wheat Flour)", "qty": "", "price": ""},
+            {"name": "मैदा (All-purpose Flour)", "qty": "", "price": ""},
+            {"name": "सुजी (Semolina)", "qty": "", "price": ""},
+            {"name": "अरारोट (Arrowroot Powder)", "qty": "", "price": ""},
+            {"name": "बेसन (Gram Flour)", "qty": "", "price": ""},
+            {"name": "मिल्क पाउडर (Milk Powder)", "qty": "", "price": ""}
+        ],
+        "bakingLeaveningAgents": [
+            {"name": "मीठा सोडा (Baking Soda)", "qty": "", "price": ""},
+            {"name": "बेकिंग पाउडर (Baking Powder)", "qty": "", "price": ""},
+            {"name": "यीस्ट (Yeast)", "qty": "", "price": ""},
+            {"name": "टाटरी (Tartaric Acid)", "qty": "", "price": ""}
+        ],
+        "sweeteners": [
+            {"name": "चीनी (Sugar)", "qty": "", "price": ""},
+            {"name": "शक्कर (Jaggery Powder)", "qty": "", "price": ""},
+            {"name": "गुड़ (Jaggery)", "qty": "", "price": ""}
+        ],
+        "dairyProducts": [
+            {"name": "दूध (Milk)", "qty": "", "price": ""},
+            {"name": "दहीं (Curd / Yogurt)", "qty": "", "price": ""},
+            {"name": "लस्सी (Buttermilk)", "qty": "", "price": ""},
+            {"name": "मखण (Butter)", "qty": "", "price": ""},
+            {"name": "पनीर (Paneer / Indian Cottage Cheese)", "qty": "", "price": ""}
+        ],
+        "vegetablesFruits": [
+            {"name": "आलू (Potatoes)", "qty": "", "price": ""},
+            {"name": "प्याज (Onions)", "qty": "", "price": ""},
+            {"name": "लहसुन (Garlic)", "qty": "", "price": ""},
+            {"name": "अदरक (Ginger)", "qty": "", "price": ""},
+            {"name": "हरी मिर्च (Green Chillies)", "qty": "", "price": ""},
+            {"name": "हरा धनिया (Coriander Leaves)", "qty": "", "price": ""},
+            {"name": "हरे मट्टर (Green Peas)", "qty": "", "price": ""},
+            {"name": "गोभी (Cauliflower)", "qty": "", "price": ""},
+            {"name": "केले (Bananas)", "qty": "", "price": ""},
+            {"name": "फ्रांसेबीन (French Beans)", "qty": "", "price": ""},
+            {"name": "गंडयाली (Unclear, possibly a local vegetable)", "qty": "", "price": ""},
+            {"name": "गाजर (Carrots)", "qty": "", "price": ""},
+            {"name": "मूली (Radish)", "qty": "", "price": ""},
+            {"name": "टमाटर (Tomatoes)", "qty": "", "price": ""},
+            {"name": "इमली (Tamarind)", "qty": "", "price": ""}
+        ],
+        "saucesCondiments": [
+            {"name": "स्नेक साँस (Unclear, possibly Snack Sauce)", "qty": "", "price": ""},
+            {"name": "ग्रीन चिल्ली (Green Chilli Sauce)", "qty": "", "price": ""},
+            {"name": "रेड चिल्ली (Red Chilli Sauce)", "qty": "", "price": ""},
+            {"name": "सोया सॉस (Soy Sauce)", "qty": "", "price": ""},
+            {"name": "सफ़ेद सिरका (White Vinegar)", "qty": "", "price": ""},
+            {"name": "काला सिरका (Black Vinegar)", "qty": "", "price": ""}
+        ],
+        "otherItems": [
+            {"name": "लाल रंग (Red Food Color)", "qty": "", "price": ""},
+            {"name": "पीला रंग (Yellow Food Color)", "qty": "", "price": ""},
+            {"name": "हरा रंग (Green Food Color)", "qty": "", "price": ""},
+            {"name": "रूह केवड़ा (Kewra Essence)", "qty": "", "price": ""},
+            {"name": "सेपु बढ़ी (Sepu Badi - a local Himachali delicacy)", "qty": "", "price": ""},
+            {"name": "रस्क (Rusk)", "qty": "", "price": ""},
+            {"name": "निरमा (Detergent Powder)", "qty": "", "price": ""},
+            {"name": "स्टील स्क्रबर (Steel Scrubber)", "qty": "", "price": ""},
+            {"name": "चाय (Tea)", "qty": "", "price": ""},
+            {"name": "बीड़ी (Beedi - local cigarette)", "qty": "", "price": ""},
+            {"name": "गिलास चाय (Tea Glasses)", "qty": "", "price": ""},
+            {"name": "गिलास पानी (Water Glasses)", "qty": "", "price": ""},
+            {"name": "प्लेट्स (Plates)", "qty": "", "price": ""},
+            {"name": "मिठाई प्लेट (Sweet Plates)", "qty": "", "price": ""},
+            {"name": "झाड़ (Broom)", "qty": "", "price": ""},
+            {"name": "साफ़ी कपड़ा (Cleaning Cloth)", "qty": "", "price": ""}
+        ]
+    };
+
+    function addItemRow(tbodyElement, itemName = '', itemQty = '', itemPrice = '', placeholderText = 'Enter item name', showRemoveButton = false) {
+        let newRow = document.createElement('tr');
+        newRow.innerHTML = `
+                <td class="category-row">
+                    <div class="item-row-controls">
+                        <input type="text" value="${itemName}" placeholder="${placeholderText}" style="border: 1px solid #cbd5e1; width: 100%"></input>
+                        ${showRemoveButton ? `<button onclick="removeItemRow(this)" class="add-remove-btn minus no-print">&times;</button>` : ''}
+                    </div>
+                </td>
+                <td class="category-row"><input type="text" style="border: 1px solid #cbd5e1" value="${itemQty}"></td>
+                <td class="category-row"><input type="text" style="border: 1px solid #cbd5e1" value="${itemPrice}"></td>
+            `;
+        tbodyElement.appendChild(newRow);
+    }
+
+    /**
+     * Handles adding a new row when a category's plus button is clicked.
+     * @param {HTMLElement} buttonElement The plus button that was clicked.
+     * @param {string} placeholderText The placeholder text for the new item's name.
+     */
+    function addDynamicItemRow(buttonElement, placeholderText) {
+        let table = buttonElement.closest('table');
+        let tbody = table.querySelector('tbody');
+        addItemRow(tbody, '', '', '', placeholderText, true); // Dynamically added rows show remove button
+    }
+
+    /**
+     * Removes an item row from the table.
+     * @param {HTMLElement} buttonElement The minus button that was clicked.
+     */
+    function removeItemRow(buttonElement) {
+        let rowToRemove = buttonElement.closest('tr');
+        if (rowToRemove) {
+            rowToRemove.remove();
+        }
+    }
+
+    // Load items from JSON when the DOM is fully loaded
+    document.addEventListener('DOMContentLoaded', () => {
+        for (const categoryKey in itemData) {
+            const tbodyId = `${categoryKey}Body`; // Construct tbody ID (e.g., "grainsPulsesBody")
+            const tbody = document.getElementById(tbodyId);
+
+            if (tbody) {
+                // Clear any initial static rows in HTML (if they existed)
+                tbody.innerHTML = '';
+                // Add items from the JSON data
+                itemData[categoryKey].forEach(item => {
+                    addItemRow(tbody, item.name, item.qty, item.price, item.name, false); // Pre-defined items do not show remove button
+                });
+
+                // For 'Other Items' category, add a few blank rows by default
+                if (categoryKey === 'otherItems' && itemData[categoryKey].length === 0) {
+                    for (let i = 0; i < 5; i++) {
+                        addItemRow(tbody, '', '', '', 'Enter item name', true); // Blank rows in 'Other Items' can be removed
+                    }
+                }
+            }
+        }
+    });
+</script>
