@@ -1,11 +1,16 @@
 ---
 import Motif from "./Motifs.astro";
+import T from "./T.astro";
 
 const items = [
-  { k: "Authorized dealer", v: "ACC, Bangur, Kamdhenu TMT, Elephant, Rajdhani, P-Mark, Jalani — direct from company." },
-  { k: "Wholesale rates, fairly", v: "Sharper prices on bulk orders for contractors, dairies and shopkeepers." },
-  { k: "Door delivery, district-wide", v: "Paid delivery anywhere in Hamirpur district. Order by phone or WhatsApp." },
-  { k: "Hindi & Pahari spoken", v: "Our team explains rates, schemes and product details in your language." },
+  { ken: "Authorized dealer", ven: "ACC, Bangur, Kamdhenu TMT, Elephant, Rajdhani, P-Mark, Jalani — direct from company.",
+    khi: "अधिकृत डीलर", vhi: "ACC, बांगुर, कामधेनु टीएमटी, एलिफेंट, राजधानी, पी-मार्क, जलानी — सीधे कंपनी से।" },
+  { ken: "Wholesale rates, fairly", ven: "Sharper prices on bulk orders for contractors, dairies and shopkeepers.",
+    khi: "थोक रेट, इमानदारी से", vhi: "ठेकेदार, डेयरी और दुकानदारों के लिए विशेष थोक भाव।" },
+  { ken: "Door delivery, district-wide", ven: "Paid delivery anywhere in Hamirpur district. Order by phone or WhatsApp.",
+    khi: "घर तक डिलीवरी", vhi: "पूरे हमीरपुर ज़िले में डिलीवरी। फ़ोन या WhatsApp पर ऑर्डर करें।" },
+  { ken: "Hindi & Pahari spoken", ven: "Our team explains rates, schemes and product details in your language.",
+    khi: "हिन्दी व पहाड़ी में बात", vhi: "हमारी टीम आपकी भाषा में रेट और स्कीम समझाती है।" },
 ];
 ---
 
@@ -15,8 +20,12 @@ const items = [
       <div style="display: flex; justify-content: center; margin-bottom: 12px;">
         <Motif type="paisley" />
       </div>
-      <div class="eyebrow" style="justify-content: center; display: inline-flex;">Why Hamirpur shops with us</div>
-      <h2 class="section-title" style="max-width: 20ch; margin: 12px auto 0;">Built on small details, every day for 25 years.</h2>
+      <div class="eyebrow" style="justify-content: center; display: inline-flex;">
+        <T en="Why Hamirpur shops with us" hi="हमीरपुर हम पर क्यों भरोसा करता है" />
+      </div>
+      <h2 class="section-title" style="max-width: 20ch; margin: 12px auto 0;">
+        <T en="Built on small details, every day for 25 years." hi="छोटी-छोटी बातें, रोज़ — 25 साल से।" />
+      </h2>
     </div>
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--gap);">
       {items.map((it, i) => (
@@ -24,8 +33,12 @@ const items = [
           <div style="width: 36px; height: 36px; border-radius: 8px; background: var(--marigold); color: var(--ink); display: grid; place-items: center; font-family: var(--serif); font-weight: 800; font-size: 15px; margin-bottom: 16px;">
             {`0${i + 1}`}
           </div>
-          <h3 style="font-size: 19px; margin-bottom: 8px;">{it.k}</h3>
-          <p style="color: var(--ink-soft); font-size: 14.5px; line-height: 1.55;">{it.v}</p>
+          <h3 style="font-size: 19px; margin-bottom: 8px;">
+            <T en={it.ken} hi={it.khi} />
+          </h3>
+          <p style="color: var(--ink-soft); font-size: 14.5px; line-height: 1.55;">
+            <T en={it.ven} hi={it.vhi} />
+          </p>
         </div>
       ))}
     </div>

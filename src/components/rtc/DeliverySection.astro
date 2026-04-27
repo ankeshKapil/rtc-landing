@@ -1,13 +1,14 @@
 ---
 import Motif from "./Motifs.astro";
+import T from "./T.astro";
 
-const areas: [string, string][] = [
-  ["Hamirpur Town", "0–5 km · same day"],
-  ["Bhota, Sujanpur, Toni Devi", "5–25 km · same day"],
-  ["Nadaun, Barsar, Bijhri", "25–45 km · next day"],
-  ["Awah Devi, Lambloo, Galore", "By route · 1–2 days"],
-  ["Bilaspur, Una border villages", "On request"],
-  ["Project sites (full district)", "Free quote"],
+const areas = [
+  { en: ["Hamirpur Town", "0–5 km · same day"], hi: ["हमीरपुर शहर", "0–5 कि.मी. · उसी दिन"] },
+  { en: ["Bhota, Sujanpur, Toni Devi", "5–25 km · same day"], hi: ["भोटा, सुजानपुर, टोनी देवी", "5–25 कि.मी. · उसी दिन"] },
+  { en: ["Nadaun, Barsar, Bijhri", "25–45 km · next day"], hi: ["नादौन, बड़सर, बिझड़ी", "25–45 कि.मी. · अगले दिन"] },
+  { en: ["Awah Devi, Lambloo, Galore", "By route · 1–2 days"], hi: ["अव्वा देवी, लम्बलू, गलोड़", "रूट के अनुसार · 1–2 दिन"] },
+  { en: ["Bilaspur, Una border villages", "On request"], hi: ["बिलासपुर, ऊना सीमा गाँव", "मांग पर"] },
+  { en: ["Project sites (full district)", "Free quote"], hi: ["प्रोजेक्ट साइट (पूरा ज़िला)", "मुफ़्त रेट"] },
 ];
 ---
 
@@ -15,16 +16,21 @@ const areas: [string, string][] = [
   <div class="container">
     <div class="delivery-grid" style="display: grid; grid-template-columns: 1fr 1.2fr; gap: 64px; align-items: start;">
       <div>
-        <div class="eyebrow">Delivery zone</div>
-        <h2 class="section-title" style="margin-top: 12px; max-width: 14ch;">We deliver to your village.</h2>
+        <div class="eyebrow"><T en="Delivery zone" hi="डिलीवरी क्षेत्र" /></div>
+        <h2 class="section-title" style="margin-top: 12px; max-width: 14ch;">
+          <T en="We deliver to your village." hi="आपके गाँव तक डिलीवरी।" />
+        </h2>
         <p class="section-sub" style="margin-top: 16px;">
-          Paid door delivery across Hamirpur district. Same-day for nearby villages, next-day for the rest. Bulk site delivery for construction projects, anywhere in HP.
+          <T en="Paid door delivery across Hamirpur district. Same-day for nearby villages, next-day for the rest. Bulk site delivery for construction projects, anywhere in HP." hi="पूरे हमीरपुर ज़िले में डिलीवरी। पास के गाँवों में उसी दिन, बाक़ी जगह अगले दिन। निर्माण साइट के लिए पूरे हि.प्र. में बल्क डिलीवरी।" />
         </p>
         <div style="margin-top: 28px; padding: 20px; border-left: 3px solid var(--marigold); background: var(--paper); border-radius: 0 8px 8px 0;">
           <div style="display: flex; align-items: center; gap: 10px; color: var(--terracotta); font-weight: 700; font-size: 14px; margin-bottom: 4px;">
-            <Motif type="truck" size={18} /> Free site visit for bulk orders
+            <Motif type="truck" size={18} />
+            <T en="Free site visit for bulk orders" hi="बल्क ऑर्डर पर मुफ़्त साइट विज़िट" />
           </div>
-          <div style="font-size: 13.5px; color: var(--ink-soft);">For construction projects above 50 bags or wholesale stock orders, we visit your site for a no-obligation quote.</div>
+          <div style="font-size: 13.5px; color: var(--ink-soft);">
+            <T en="For construction projects above 50 bags or wholesale stock orders, we visit your site for a no-obligation quote." hi="50 बोरी से अधिक के निर्माण प्रोजेक्ट या थोक स्टॉक ऑर्डर के लिए, हम बिना किसी बाध्यता के साइट विज़िट करते हैं।" />
+          </div>
         </div>
       </div>
       <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden;">
@@ -32,9 +38,13 @@ const areas: [string, string][] = [
           <div style="padding: 22px; background: var(--paper);">
             <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
               <span style="width: 24px; height: 24px; border-radius: 50%; background: var(--cream); color: var(--terracotta); display: grid; place-items: center; font-size: 11px; font-weight: 800;">{i + 1}</span>
-              <div style="font-family: var(--serif); font-weight: 700; font-size: 16px;">{a[0]}</div>
+              <div style="font-family: var(--serif); font-weight: 700; font-size: 16px;">
+                <T en={a.en[0]} hi={a.hi[0]} />
+              </div>
             </div>
-            <div style="font-size: 13px; color: var(--forest); font-weight: 600;">{a[1]}</div>
+            <div style="font-size: 13px; color: var(--forest); font-weight: 600;">
+              <T en={a.en[1]} hi={a.hi[1]} />
+            </div>
           </div>
         ))}
       </div>

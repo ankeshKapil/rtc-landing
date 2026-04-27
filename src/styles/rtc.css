@@ -70,6 +70,9 @@ body.rtc-page {
 }
 body.rtc-page[data-lang="hi"] { font-family: var(--hindi); }
 
+body.rtc-page[data-lang="en"] [lang="hi"] { display: none !important; }
+body.rtc-page[data-lang="hi"] [lang="en"] { display: none !important; }
+
 .rtc-page h1, .rtc-page h2, .rtc-page h3, .rtc-page h4 {
   font-family: var(--serif); font-weight: 700; line-height: 1.1; letter-spacing: -0.02em; margin: 0;
 }
@@ -197,10 +200,10 @@ body.rtc-page[data-lang="hi"] .brandmark .name { font-family: var(--hindi-displa
 }
 .rtc-page .float-actions a:hover { transform: scale(1.08); }
 .rtc-page .float-actions .wa { background: #25D366; }
-.rtc-page .float-actions .call { background: var(--terracotta); animation: rtc-pulse 2.4s infinite; }
+.rtc-page .float-actions .wa-pulse { animation: rtc-pulse 2.4s infinite; }
 @keyframes rtc-pulse {
-  0%, 100% { box-shadow: 0 8px 24px rgba(0,0,0,0.25), 0 0 0 0 rgba(184,52,27,0.5); }
-  50% { box-shadow: 0 8px 24px rgba(0,0,0,0.25), 0 0 0 14px rgba(184,52,27,0); }
+  0%, 100% { box-shadow: 0 8px 24px rgba(0,0,0,0.25), 0 0 0 0 rgba(37,211,102,0.5); }
+  50% { box-shadow: 0 8px 24px rgba(0,0,0,0.25), 0 0 0 14px rgba(37,211,102,0); }
 }
 
 .rtc-page .mobile-toggle { display: none; }

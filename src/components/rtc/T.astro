@@ -1,0 +1,11 @@
+---
+export interface Props {
+  en: string;
+  hi: string;
+  as?: string;
+}
+const { en, hi, as: Tag = "span" } = Astro.props;
+const Element = Tag as any;
+---
+
+<Element lang="en">{en}</Element><Element lang="hi">{hi}</Element>

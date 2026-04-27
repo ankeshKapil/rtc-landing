@@ -1,26 +1,27 @@
 ---
 import Motif from "./Motifs.astro";
+import T from "./T.astro";
 
 const packages = [
-  { name: "Small Function", guests: "Up to 100 guests", note: "Mundan, small jagran" },
-  { name: "Mid Function", guests: "100 – 300 guests", note: "Engagement, family event" },
-  { name: "Large Wedding", guests: "300+ guests", note: "Wedding dham, full ration" },
+  { nameEn: "Small Function", nameHi: "छोटा फंक्शन", guestsEn: "Up to 100 guests", guestsHi: "100 मेहमान तक", noteEn: "Mundan, small jagran", noteHi: "मुंडन, छोटा जागरण" },
+  { nameEn: "Mid Function", nameHi: "मध्यम फंक्शन", guestsEn: "100 – 300 guests", guestsHi: "100 – 300 मेहमान", noteEn: "Engagement, family event", noteHi: "सगाई, पारिवारिक आयोजन" },
+  { nameEn: "Large Wedding", nameHi: "बड़ी शादी", guestsEn: "300+ guests", guestsHi: "300+ मेहमान", noteEn: "Wedding dham, full ration", noteHi: "शादी का धाम, पूरा राशन" },
 ];
 
-const menuItems: [string, string][] = [
-  ["Madra", "Rajma in curd-based gravy"],
-  ["Sepu Badi", "Steamed urad dumplings"],
-  ["Channa Madra", "Chickpea madra"],
-  ["Kadi & Chawal", "Yoghurt curry with rice"],
-  ["Mittha", "Sweet rice with raisins"],
-  ["Boondi", "Festive sweet rice"],
+const menuItems = [
+  { nameEn: "Madra", nameHi: "मद्रा", descEn: "Rajma in curd-based gravy", descHi: "दही वाली राजमा" },
+  { nameEn: "Sepu Badi", nameHi: "सेपू बड़ी", descEn: "Steamed urad dumplings", descHi: "उड़द की भाप वाली बड़ी" },
+  { nameEn: "Channa Madra", nameHi: "चना मद्रा", descEn: "Chickpea madra", descHi: "चने का मद्रा" },
+  { nameEn: "Kadi & Chawal", nameHi: "कढ़ी व चावल", descEn: "Yoghurt curry with rice", descHi: "दही की कढ़ी, चावल" },
+  { nameEn: "Mittha", nameHi: "मीठा", descEn: "Sweet rice with raisins", descHi: "किशमिश वाला मीठा चावल" },
+  { nameEn: "Boondi", nameHi: "बूँदी", descEn: "Festive sweet rice", descHi: "त्योहार का मीठा" },
 ];
 
 const bowls = menuItems.slice(0, 6).map((m, i) => {
   const angle = ((i * 60 - 90) * Math.PI) / 180;
   const r = 44;
   return {
-    name: m[0],
+    en: m.nameEn, hi: m.nameHi,
     left: `calc(50% + ${Math.cos(angle) * r}% - 36px)`,
     top: `calc(50% + ${Math.sin(angle) * r}% - 36px)`,
   };
@@ -38,14 +39,20 @@ const bowls = menuItems.slice(0, 6).map((m, i) => {
   <div class="container" style="position: relative;">
     <div class="dham-grid" style="display: grid; grid-template-columns: 1.1fr 1fr; gap: 64px; align-items: start;">
       <div>
-        <div class="eyebrow" style="color: var(--marigold);">Dham, done right</div>
-        <h2 class="section-title" style="color: #fff; max-width: 16ch; margin-top: 12px;">Plan your Himachali dham with one phone call.</h2>
+        <div class="eyebrow" style="color: var(--marigold);">
+          <T en="Dham, done right" hi="धाम, सही ढंग से" />
+        </div>
+        <h2 class="section-title" style="color: #fff; max-width: 16ch; margin-top: 12px;">
+          <T en="Plan your Himachali dham with one phone call." hi="एक फ़ोन कॉल पर पूरा धाम।" />
+        </h2>
         <p style="font-size: 18px; color: #FFE9C2; opacity: 0.88; max-width: 52ch; margin-top: 16px;">
-          Whether it is a wedding, mundan, jagran or jashan — we provision the full ration list, arrange the masalas, and deliver to your venue. Menu approved by botis across Hamirpur.
+          <T en="Whether it is a wedding, mundan, jagran or jashan — we provision the full ration list, arrange the masalas, and deliver to your venue. Menu approved by botis across Hamirpur." hi="शादी हो, मुंडन हो, जागरण हो या जश्न — पूरी राशन लिस्ट, मसाले, और वेन्यू तक डिलीवरी हम संभालते हैं। हमीरपुर के बोटियों की पसंद।" />
         </p>
 
         <div style="margin-top: 36px;">
-          <div style="font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--marigold); font-weight: 700; margin-bottom: 14px;">Standard packages</div>
+          <div style="font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--marigold); font-weight: 700; margin-bottom: 14px;">
+            <T en="Standard packages" hi="तय पैकेज" />
+          </div>
           <div style="display: grid; gap: 10px;">
             {packages.map((p, i) => (
               <div style="display: grid; grid-template-columns: auto 1fr auto; gap: 16px; align-items: center; padding: 16px 20px; background: rgba(255,233,194,0.08); border: 1px solid rgba(255,233,194,0.18); border-radius: 10px;">
@@ -53,19 +60,28 @@ const bowls = menuItems.slice(0, 6).map((m, i) => {
                   {`0${i + 1}`}
                 </div>
                 <div>
-                  <div style="font-family: var(--serif); font-size: 19px; font-weight: 700; color: #fff;">{p.name}</div>
-                  <div style="font-size: 13px; opacity: 0.8; margin-top: 2px;">{p.note}</div>
+                  <div style="font-family: var(--serif); font-size: 19px; font-weight: 700; color: #fff;">
+                    <T en={p.nameEn} hi={p.nameHi} />
+                  </div>
+                  <div style="font-size: 13px; opacity: 0.8; margin-top: 2px;">
+                    <T en={p.noteEn} hi={p.noteHi} />
+                  </div>
                 </div>
-                <div style="font-size: 13px; color: var(--marigold); font-weight: 600; text-align: right;">{p.guests}</div>
+                <div style="font-size: 13px; color: var(--marigold); font-weight: 600; text-align: right;">
+                  <T en={p.guestsEn} hi={p.guestsHi} />
+                </div>
               </div>
             ))}
           </div>
         </div>
 
         <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px;">
-          <a href="/Dham-List.pdf" target="_blank" rel="noopener" class="btn btn-marigold">↓ Download full Dham list (PDF)</a>
-          <a href="tel:+917018657685" class="btn btn-ghost" style="border-color: var(--marigold); color: var(--marigold);">
-            <Motif type="phone" size={16} /> Call boti coordinator
+          <a href="/Dham-List.pdf" target="_blank" rel="noopener" class="btn btn-marigold">
+            <T en="↓ Download full Dham list (PDF)" hi="↓ पूरी धाम लिस्ट डाउनलोड (PDF)" />
+          </a>
+          <a href="https://wa.me/917018657685?text=Dham%20booking%20enquiry" target="_blank" rel="noopener" class="btn btn-ghost" style="border-color: var(--marigold); color: var(--marigold);">
+            <Motif type="whatsapp" size={16} />
+            <T en="WhatsApp boti coordinator" hi="बोटी कोऑर्डिनेटर को WhatsApp" />
           </a>
         </div>
       </div>
@@ -77,24 +93,28 @@ const bowls = menuItems.slice(0, 6).map((m, i) => {
               <div style="font-family: var(--hindi-display); font-size: 44px; font-weight: 700; line-height: 1;">धाम</div>
               <div style="font-family: var(--serif); font-size: 24px; font-style: italic; margin-top: 4px;">thali</div>
               <div style="width: 40px; height: 1px; background: var(--terracotta); margin: 12px auto;"></div>
-              <div style="font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-soft);">6 traditional dishes</div>
+              <div style="font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-soft);">
+                <T en="6 traditional dishes" hi="6 पारंपरिक व्यंजन" />
+              </div>
             </div>
             {bowls.map((b) => (
               <div style={`position: absolute; left: ${b.left}; top: ${b.top}; width: 72px; height: 72px; border-radius: 50%; background: var(--paper); border: 3px solid var(--terracotta); display: grid; place-items: center; text-align: center; font-family: var(--hindi-display); font-size: 13px; font-weight: 700; color: var(--terracotta-deep); box-shadow: 0 4px 12px rgba(0,0,0,0.2); padding: 4px;`}>
-                {b.name}
+                <T en={b.en} hi={b.hi} />
               </div>
             ))}
           </div>
         </div>
 
         <div style="margin-top: 32px; padding: 20px 24px; background: rgba(255,233,194,0.06); border-radius: 12px; border: 1px solid rgba(255,233,194,0.18);">
-          <div style="font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--marigold); font-weight: 700; margin-bottom: 12px;">What's on the dham thali</div>
+          <div style="font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--marigold); font-weight: 700; margin-bottom: 12px;">
+            <T en="What's on the dham thali" hi="धाम की थाली में क्या-क्या" />
+          </div>
           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px 24px;">
             {menuItems.map((m) => (
               <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 8px; font-size: 13.5px;">
-                <span style="color: #fff; font-weight: 600;">{m[0]}</span>
+                <span style="color: #fff; font-weight: 600;"><T en={m.nameEn} hi={m.nameHi} /></span>
                 <span style="flex: 1; border-bottom: 1px dotted rgba(255,233,194,0.3); margin: 0 6px; height: 1px;"></span>
-                <span style="color: var(--marigold); opacity: 0.8; font-size: 12px;">{m[1]}</span>
+                <span style="color: var(--marigold); opacity: 0.8; font-size: 12px;"><T en={m.descEn} hi={m.descHi} /></span>
               </div>
             ))}
           </div>

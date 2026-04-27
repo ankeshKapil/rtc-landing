@@ -1,4 +1,5 @@
 ---
+import T from "./T.astro";
 import pulses from "../../assets/pulses.png";
 import cement from "../../assets/cement.png";
 import feed from "../../assets/feed.png";
@@ -7,47 +8,51 @@ import spices from "../../assets/spices.png";
 const cats = [
   {
     id: "karyana",
-    tag: "Counter 01",
-    name: "Karyana & Daily Groceries",
-    sub: "Rice, atta, dal, oils, masalas, cleaning",
-    body: "The everyday list, stocked deep. Branded staples plus our own loose rates — buy by the kilo or by the sack.",
-    items: ["Pulses & rice", "Wheat flour & atta", "Mustard oil (P-Mark, Rajdhani)", "Elephant masalas", "Sugar, salt, tea", "Soaps & cleaning"],
-    cta: "View karyana list",
-    img: pulses.src,
-    accent: "var(--terracotta)",
+    tagEn: "Counter 01", tagHi: "काउंटर 01",
+    nameEn: "Karyana & Daily Groceries", nameHi: "किराना और रोज़ का सामान",
+    subEn: "Rice, atta, dal, oils, masalas, cleaning", subHi: "चावल, आटा, दाल, तेल, मसाले, सफ़ाई",
+    bodyEn: "The everyday list, stocked deep. Branded staples plus our own loose rates — buy by the kilo or by the sack.",
+    bodyHi: "रोज़मर्रा की पूरी लिस्ट। ब्रांडेड भी, खुला भी — किलो से लेकर बोरी तक।",
+    itemsEn: ["Pulses & rice", "Wheat flour & atta", "Mustard oil (P-Mark, Rajdhani)", "Elephant masalas", "Sugar, salt, tea", "Soaps & cleaning"],
+    itemsHi: ["दालें व चावल", "गेहूँ का आटा", "सरसों का तेल (P-Mark, Rajdhani)", "एलिफेंट मसाले", "चीनी, नमक, चाय", "साबुन व सफ़ाई"],
+    ctaEn: "View karyana list", ctaHi: "किराना लिस्ट देखें",
+    img: pulses.src, accent: "var(--terracotta)",
   },
   {
     id: "construction",
-    tag: "Counter 02",
-    name: "Construction Materials",
-    sub: "Cement, TMT, steel, pipes",
-    body: "Site-ready cement and reinforcement, delivered to your plot. Project quotes for contractors and self-builders.",
-    items: ["ACC & Bangur cement", "Kamdhenu TMT bars", "Structural steel", "Angles & channels", "G.I. & PVC pipes", "Binding wire, nails"],
-    cta: "Get today's site rate",
-    img: cement.src,
-    accent: "var(--forest)",
+    tagEn: "Counter 02", tagHi: "काउंटर 02",
+    nameEn: "Construction Materials", nameHi: "निर्माण सामग्री",
+    subEn: "Cement, TMT, steel, pipes", subHi: "सीमेंट, टीएमटी, स्टील, पाइप",
+    bodyEn: "Site-ready cement and reinforcement, delivered to your plot. Project quotes for contractors and self-builders.",
+    bodyHi: "साइट तक सीमेंट और सरिया की डिलीवरी। ठेकेदारों और स्वयं निर्माण के लिए ख़ास रेट।",
+    itemsEn: ["ACC & Bangur cement", "Kamdhenu TMT bars", "Structural steel", "Angles & channels", "G.I. & PVC pipes", "Binding wire, nails"],
+    itemsHi: ["ACC व बांगुर सीमेंट", "कामधेनु टीएमटी", "स्ट्रक्चरल स्टील", "एंगल व चैनल", "जी.आई. व पीवीसी पाइप", "तार, कील"],
+    ctaEn: "Get today's site rate", ctaHi: "आज का साइट रेट लें",
+    img: cement.src, accent: "var(--forest)",
   },
   {
     id: "feed",
-    tag: "Counter 03",
-    name: "Cattle Feed & Supplements",
-    sub: "Khal, binola, chokher, mineral mix",
-    body: "Premium feed and supplements that improve milk yield. Dairy farmers across the district trust us.",
-    items: ["Cattle feed (compounded)", "Khal-Binola (premium)", "Chokher / wheat bran", "Mineral mixture", "Calcium supplements", "Salt licks"],
-    cta: "Place a feed order",
-    img: feed.src,
-    accent: "var(--marigold-deep)",
+    tagEn: "Counter 03", tagHi: "काउंटर 03",
+    nameEn: "Cattle Feed & Supplements", nameHi: "पशु आहार व सप्लीमेंट",
+    subEn: "Khal, binola, chokher, mineral mix", subHi: "खल, बिनौला, चोकर, मिनरल मिक्स",
+    bodyEn: "Premium feed and supplements that improve milk yield. Dairy farmers across the district trust us.",
+    bodyHi: "दूध बढ़ाने वाले प्रीमियम फ़ीड और सप्लीमेंट। पूरे ज़िले के डेयरी किसान भरोसा करते हैं।",
+    itemsEn: ["Cattle feed (compounded)", "Khal-Binola (premium)", "Chokher / wheat bran", "Mineral mixture", "Calcium supplements", "Salt licks"],
+    itemsHi: ["कैटल फ़ीड (कम्पाउंडेड)", "खल-बिनौला (प्रीमियम)", "चोकर / गेहूँ चोकर", "मिनरल मिक्सचर", "कैल्शियम सप्लीमेंट", "सॉल्ट लिक"],
+    ctaEn: "Place a feed order", ctaHi: "फ़ीड ऑर्डर करें",
+    img: feed.src, accent: "var(--marigold-deep)",
   },
   {
     id: "dham-counter",
-    tag: "Counter 04",
-    name: "Himachali Dham Catering",
-    sub: "Wedding, mundan, jagran packages",
-    body: "Fully provisioned dham packages with traditional Pahari menu. We supply ration, masalas and arrangements end-to-end.",
-    items: ["Madra & rajma", "Sepu badi, channa", "Mittha & meetha bhaat", "Kadi & chawal", "Custom guest counts", "On-site delivery"],
-    cta: "See full dham menu",
-    img: spices.src,
-    accent: "var(--terracotta)",
+    tagEn: "Counter 04", tagHi: "काउंटर 04",
+    nameEn: "Himachali Dham Catering", nameHi: "हिमाचली धाम कैटरिंग",
+    subEn: "Wedding, mundan, jagran packages", subHi: "शादी, मुंडन, जागरण के पैकेज",
+    bodyEn: "Fully provisioned dham packages with traditional Pahari menu. We supply ration, masalas and arrangements end-to-end.",
+    bodyHi: "पारंपरिक पहाड़ी मेन्यू के साथ पूरा धाम पैकेज। राशन, मसाले और इंतज़ाम — सब कुछ हम देखते हैं।",
+    itemsEn: ["Madra & rajma", "Sepu badi, channa", "Mittha & meetha bhaat", "Kadi & chawal", "Custom guest counts", "On-site delivery"],
+    itemsHi: ["मद्रा व राजमा", "सेपू बड़ी, चना", "मीठा व मीठा भात", "कढ़ी व चावल", "मेहमानों की संख्या अनुसार", "वेन्यू पर डिलीवरी"],
+    ctaEn: "See full dham menu", ctaHi: "पूरा धाम मेन्यू देखें",
+    img: spices.src, accent: "var(--terracotta)",
   },
 ];
 ---
@@ -56,39 +61,52 @@ const cats = [
   <div class="container">
     <div class="two-col" style="display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: end; margin-bottom: 56px;">
       <div>
-        <div class="eyebrow">What we sell</div>
-        <h2 class="section-title" style="max-width: 16ch;">Four counters, one shop.</h2>
-        <p class="section-sub" style="margin-top: 12px;">From a 500g masala packet to 100 bags of cement — built for households and businesses alike.</p>
+        <div class="eyebrow"><T en="What we sell" hi="क्या मिलता है" /></div>
+        <h2 class="section-title" style="max-width: 16ch;">
+          <T en="Four counters, one shop." hi="चार काउंटर, एक दुकान।" />
+        </h2>
+        <p class="section-sub" style="margin-top: 12px;">
+          <T en="From a 500g masala packet to 100 bags of cement — built for households and businesses alike." hi="500 ग्राम मसाले से लेकर 100 बोरी सीमेंट तक — परिवार और कारोबार दोनों के लिए।" />
+        </p>
       </div>
-      <a href="#bulk" class="btn btn-ghost" style="white-space: nowrap;">Get a Quote →</a>
+      <a href="#bulk" class="btn btn-ghost" style="white-space: nowrap;">
+        <T en="Get a Quote →" hi="रेट पूछें →" />
+      </a>
     </div>
 
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--gap);">
       {cats.map((cat) => (
         <div id={cat.id} style="background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; display: flex; flex-direction: column; box-shadow: var(--card-shadow); position: relative;">
           <div style={`background: ${cat.accent}; color: #fff; padding: 8px 16px; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 700; display: flex; justify-content: space-between;`}>
-            <span>{cat.tag}</span>
+            <T en={cat.tagEn} hi={cat.tagHi} />
             <span>★</span>
           </div>
           <div style="padding: 28px 24px 20px;">
             <div style="width: 80px; height: 80px; margin-bottom: 16px; background: var(--bg); border-radius: 8px; padding: 8px; display: grid; place-items: center; border: 1px solid var(--line);">
               <img src={cat.img} alt="" style="max-width: 100%; max-height: 100%; object-fit: contain;" />
             </div>
-            <h3 style="font-size: 22px; margin-bottom: 4px;">{cat.name}</h3>
-            <div style={`font-size: 13px; color: ${cat.accent}; font-weight: 600; margin-bottom: 12px;`}>{cat.sub}</div>
-            <p style="font-size: 14.5px; color: var(--ink-soft); line-height: 1.55; margin-bottom: 16px;">{cat.body}</p>
+            <h3 style="font-size: 22px; margin-bottom: 4px;">
+              <T en={cat.nameEn} hi={cat.nameHi} />
+            </h3>
+            <div style={`font-size: 13px; color: ${cat.accent}; font-weight: 600; margin-bottom: 12px;`}>
+              <T en={cat.subEn} hi={cat.subHi} />
+            </div>
+            <p style="font-size: 14.5px; color: var(--ink-soft); line-height: 1.55; margin-bottom: 16px;">
+              <T en={cat.bodyEn} hi={cat.bodyHi} />
+            </p>
           </div>
           <div style="padding: 0 24px 20px; flex: 1;">
             <ul style="margin: 0; padding: 0; list-style: none; display: grid; gap: 6px;">
-              {cat.items.map((it) => (
+              {cat.itemsEn.map((itEn, j) => (
                 <li style="font-size: 13.5px; display: flex; align-items: flex-start; gap: 8px; color: var(--ink-soft);">
-                  <span style={`color: ${cat.accent}; margin-top: 2px;`}>✦</span> {it}
+                  <span style={`color: ${cat.accent}; margin-top: 2px;`}>✦</span>
+                  <T en={itEn} hi={cat.itemsHi[j]} />
                 </li>
               ))}
             </ul>
           </div>
           <a href="#bulk" style={`border-top: 1px solid var(--line); padding: 14px 24px; text-decoration: none; color: ${cat.accent}; font-weight: 600; font-size: 14px; display: flex; justify-content: space-between; align-items: center;`}>
-            {cat.cta}<span>→</span>
+            <T en={cat.ctaEn} hi={cat.ctaHi} /><span>→</span>
           </a>
         </div>
       ))}

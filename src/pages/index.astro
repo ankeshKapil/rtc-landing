@@ -41,20 +41,38 @@ import FloatActions from "../components/rtc/FloatActions.astro";
 </Layout>
 
 <script>
-  // Language toggle (visual state only — copy stays English in v1)
-  const langToggle = document.getElementById("lang-toggle");
-  langToggle?.addEventListener("click", (e) => {
-    const target = e.target as HTMLElement;
-    if (target.tagName !== "BUTTON") return;
-    const lang = target.dataset.lang;
-    if (!lang) return;
+  type Lang = "en" | "hi";
+
+  function applyLang(lang: Lang) {
     document.body.dataset.lang = lang;
-    langToggle.querySelectorAll("button").forEach((b) => {
+
+    document.querySelectorAll<HTMLElement>("#lang-toggle button").forEach((b) => {
       b.classList.toggle("on", b.dataset.lang === lang);
     });
+
+    document.querySelectorAll<HTMLElement>("[data-chipgroup]").forEach((group) => {
+      const hidden = group.parentElement?.querySelector<HTMLInputElement>("input[type=hidden]");
+      const active = group.querySelector<HTMLButtonElement>("button.chip.on, button.chip.on-forest");
+      if (hidden && active) {
+        hidden.value = (lang === "hi" ? active.dataset.valueHi : active.dataset.valueEn) || "";
+      }
+    });
+
+    document.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>(
+      "#bulk-form input[data-ph-en], #bulk-form textarea[data-ph-en]"
+    ).forEach((el) => {
+      const ph = lang === "hi" ? el.dataset.phHi : el.dataset.phEn;
+      if (ph) el.placeholder = ph;
+    });
+  }
+
+  document.getElementById("lang-toggle")?.addEventListener("click", (e) => {
+    const target = e.target as HTMLElement;
+    if (target.tagName !== "BUTTON") return;
+    const lang = target.dataset.lang as Lang | undefined;
+    if (lang === "en" || lang === "hi") applyLang(lang);
   });
 
-  // Bulk form: chip selection + WhatsApp submit
   document.querySelectorAll<HTMLElement>("[data-chipgroup]").forEach((group) => {
     const hidden = group.parentElement?.querySelector<HTMLInputElement>("input[type=hidden]");
     const onClass = group.dataset.style === "forest" ? "on-forest" : "on";
@@ -64,7 +82,10 @@ import FloatActions from "../components/rtc/FloatActions.astro";
           b.classList.remove("on", "on-forest");
         });
         btn.classList.add(onClass);
-        if (hidden) hidden.value = btn.dataset.value || "";
+        if (hidden) {
+          const lang = (document.body.dataset.lang || "en") as Lang;
+          hidden.value = (lang === "hi" ? btn.dataset.valueHi : btn.dataset.valueEn) || "";
+        }
       });
     });
   });

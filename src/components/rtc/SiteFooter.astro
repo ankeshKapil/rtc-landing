@@ -1,23 +1,38 @@
 ---
 import Motif from "./Motifs.astro";
+import T from "./T.astro";
 
 const cols = [
-  { title: "Shop", links: ["Karyana", "Construction", "Cattle feed", "Dham catering"] },
-  { title: "Brands", links: ["ACC Cement", "Bangur Cement", "Kamdhenu TMT", "Elephant Masalas", "P-Mark Oil", "Rajdhani"] },
-  { title: "Visit", links: ["Location", "Delivery zones", "Hours", "Bulk quote"] },
+  { titleEn: "Shop", titleHi: "दुकान",
+    linksEn: ["Karyana", "Construction", "Cattle feed", "Dham catering"],
+    linksHi: ["किराना", "निर्माण", "पशु आहार", "धाम कैटरिंग"] },
+  { titleEn: "Brands", titleHi: "ब्रांड्स",
+    linksEn: ["ACC Cement", "Bangur Cement", "Kamdhenu TMT", "Elephant Masalas", "P-Mark Oil", "Rajdhani"],
+    linksHi: ["ACC सीमेंट", "बांगुर सीमेंट", "कामधेनु टीएमटी", "एलिफेंट मसाले", "P-Mark तेल", "राजधानी"] },
+  { titleEn: "Visit", titleHi: "मिलिए",
+    linksEn: ["Location", "Delivery zones", "Hours", "Bulk quote"],
+    linksHi: ["लोकेशन", "डिलीवरी क्षेत्र", "समय", "थोक रेट"] },
 ];
 ---
 
 <section class="footer-cta-bar" style="background: var(--terracotta); color: #FFE9C2; padding: 4rem 0;">
   <div class="container footer-cta-grid" style="display: grid; grid-template-columns: 1.4fr auto; gap: 32px; align-items: center;">
     <div>
-      <div style="font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--marigold); font-weight: 700;">Place an order</div>
-      <h2 class="section-title" style="color: #fff; margin-top: 8px;">Ready to place an order?</h2>
-      <p style="font-size: 17px; opacity: 0.9; margin-top: 10px;">WhatsApp your list, or call us. We pick up.</p>
+      <div style="font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--marigold); font-weight: 700;">
+        <T en="Place an order" hi="ऑर्डर करें" />
+      </div>
+      <h2 class="section-title" style="color: #fff; margin-top: 8px;">
+        <T en="Ready to place an order?" hi="ऑर्डर करना है?" />
+      </h2>
+      <p style="font-size: 17px; opacity: 0.9; margin-top: 10px;">
+        <T en="WhatsApp your list. We'll get back to you with rates." hi="WhatsApp पर लिस्ट भेजें। हम रेट के साथ जवाब देंगे।" />
+      </p>
     </div>
     <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-      <a href="https://wa.me/917018657685" class="btn btn-wa"><Motif type="whatsapp" size={16} /> WhatsApp</a>
-      <a href="tel:+917018657685" class="btn btn-marigold"><Motif type="phone" size={16} /> +91 7018 657 685</a>
+      <a href="https://wa.me/917018657685" target="_blank" rel="noopener" class="btn btn-wa">
+        <Motif type="whatsapp" size={16} />
+        <T en="WhatsApp Us" hi="WhatsApp करें" />
+      </a>
     </div>
   </div>
 </section>
@@ -28,30 +43,47 @@ const cols = [
       <div>
         <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
           <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--terracotta); color: var(--marigold); display: grid; place-items: center; font-family: var(--serif); font-weight: 900; border: 2px solid var(--marigold);">रू</div>
-          <div style="font-family: var(--serif); font-weight: 700; font-size: 18px; color: #fff;">Roop Trading Company</div>
+          <div style="font-family: var(--serif); font-weight: 700; font-size: 18px; color: #fff;">
+            <T en="Roop Trading Company" hi="रूप ट्रेडिंग कंपनी" />
+          </div>
         </div>
-        <p style="font-size: 14px; color: #B8AC92; line-height: 1.6;">An honest karyana, a serious wholesale supplier — for 25 years and counting.</p>
+        <p style="font-size: 14px; color: #B8AC92; line-height: 1.6;">
+          <T en="An honest karyana, a serious wholesale supplier — for 25 years and counting." hi="एक ईमानदार किराना, एक गंभीर थोक सप्लायर — 25 साल से।" />
+        </p>
         <div style="margin-top: 20px; font-size: 13px; color: #B8AC92;">
-          <div>Chowki Jamwalan, SH-39</div>
-          <div>Hamirpur, HP 177020</div>
-          <div style="margin-top: 8px;">+91 7018 657 685</div>
+          <div><T en="Chowki Jamwalan, SH-39" hi="चौकी जमवालां, SH-39" /></div>
+          <div><T en="Hamirpur, HP 177020" hi="हमीरपुर, हि.प्र. 177020" /></div>
+          <div style="margin-top: 8px;">
+            <a href="https://wa.me/917018657685" target="_blank" rel="noopener" style="color: #B8AC92; text-decoration: none; display: inline-flex; align-items: center; gap: 6px;">
+              <Motif type="whatsapp" size={13} />
+              <T en="WhatsApp" hi="WhatsApp" />
+            </a>
+          </div>
           <div>rooptrading85@gmail.com</div>
         </div>
       </div>
       {cols.map((col) => (
         <div>
-          <div style="font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--marigold); font-weight: 700; margin-bottom: 16px;">{col.title}</div>
+          <div style="font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--marigold); font-weight: 700; margin-bottom: 16px;">
+            <T en={col.titleEn} hi={col.titleHi} />
+          </div>
           <ul style="list-style: none; padding: 0; margin: 0; display: grid; gap: 10px;">
-            {col.links.map((l) => (
-              <li><a href="#" style="color: #B8AC92; text-decoration: none; font-size: 14px;">{l}</a></li>
+            {col.linksEn.map((l, j) => (
+              <li><a href="#" style="color: #B8AC92; text-decoration: none; font-size: 14px;">
+                <T en={l} hi={col.linksHi[j]} />
+              </a></li>
             ))}
           </ul>
         </div>
       ))}
     </div>
     <div style="padding-top: 24px; border-top: 1px solid #3a2d1a; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; font-size: 13px; color: #8a7c62;">
-      <div>© 2026 Roop Trading Company. Hamirpur, HP. All rights reserved.</div>
-      <div>GST · Authorized dealer · Established 1999</div>
+      <div>
+        <T en="© 2026 Roop Trading Company. Hamirpur, HP. All rights reserved." hi="© 2026 रूप ट्रेडिंग कंपनी. हमीरपुर, हि.प्र. सर्वाधिकार सुरक्षित।" />
+      </div>
+      <div>
+        <T en="GST · Authorized dealer · Established 1999" hi="GST · अधिकृत डीलर · स्थापित 1999" />
+      </div>
     </div>
   </div>
 </footer>

@@ -1,11 +1,24 @@
 ---
 import Motif from "./Motifs.astro";
+import T from "./T.astro";
 
 const reviews = [
-  { name: "Raj Kumar", role: "Local Contractor · Hamirpur", body: "Five years of building work and never had a cement quality issue. The TMT bar rates beat the bigger shops, especially in bulk. They open early and load the truck themselves.", rating: 5 },
-  { name: "Sunita Devi", role: "Dairy Farmer · Bhota", body: "Switched cattle feed to their compounded mix two years back. Milk yield up clearly. The team explains the supplements properly — not just selling.", rating: 5 },
-  { name: "Mahesh Singh", role: "Restaurant Owner · Sujanpur", body: "We sourced the entire dham for our daughter's wedding from here. 350 guests, zero issue. Boti was happy. Father-in-law was happier.", rating: 5 },
-  { name: "Ramesh Sharma", role: "Shopkeeper · Nadaun", body: "I run a small karyana shop and refill from Roop every fortnight. Honest weight, honest rate, honest billing. That's all you need.", rating: 5 },
+  { nameEn: "Raj Kumar", nameHi: "राज कुमार", roleEn: "Local Contractor · Hamirpur", roleHi: "ठेकेदार · हमीरपुर",
+    bodyEn: "Five years of building work and never had a cement quality issue. The TMT bar rates beat the bigger shops, especially in bulk. They open early and load the truck themselves.",
+    bodyHi: "पाँच साल से निर्माण काम चल रहा है, सीमेंट की क्वालिटी में कभी समस्या नहीं आई। थोक में टीएमटी रेट बड़ी दुकानों से कम। सुबह जल्दी खुलते हैं, ख़ुद ट्रक भर देते हैं।",
+    rating: 5 },
+  { nameEn: "Sunita Devi", nameHi: "सुनीता देवी", roleEn: "Dairy Farmer · Bhota", roleHi: "डेयरी फ़ार्मर · भोटा",
+    bodyEn: "Switched cattle feed to their compounded mix two years back. Milk yield up clearly. The team explains the supplements properly — not just selling.",
+    bodyHi: "दो साल पहले इनके कम्पाउंडेड फ़ीड पर शिफ्ट हुए। दूध साफ़ बढ़ा। टीम सप्लीमेंट ठीक से समझाती है — सिर्फ़ बेचती नहीं।",
+    rating: 5 },
+  { nameEn: "Mahesh Singh", nameHi: "महेश सिंह", roleEn: "Restaurant Owner · Sujanpur", roleHi: "रेस्तराँ मालिक · सुजानपुर",
+    bodyEn: "We sourced the entire dham for our daughter's wedding from here. 350 guests, zero issue. Boti was happy. Father-in-law was happier.",
+    bodyHi: "बेटी की शादी का पूरा धाम यहीं से लिया। 350 मेहमान, ज़ीरो दिक़्क़त। बोटी ख़ुश, ससुर जी उससे ज़्यादा ख़ुश।",
+    rating: 5 },
+  { nameEn: "Ramesh Sharma", nameHi: "रमेश शर्मा", roleEn: "Shopkeeper · Nadaun", roleHi: "दुकानदार · नादौन",
+    bodyEn: "I run a small karyana shop and refill from Roop every fortnight. Honest weight, honest rate, honest billing. That's all you need.",
+    bodyHi: "मेरी छोटी किराना दुकान है, हर पंद्रह दिन में रूप से रिफ़िल करता हूँ। ईमानदार तौल, ईमानदार रेट, ईमानदार बिल। बस इतना ही चाहिए।",
+    rating: 5 },
 ];
 ---
 
@@ -18,20 +31,32 @@ const reviews = [
   </div>
   <div class="container" style="position: relative;">
     <div style="text-align: center; margin-bottom: 56px;">
-      <div class="eyebrow" style="justify-content: center; display: inline-flex;">From our regulars</div>
-      <h2 class="section-title" style="margin-top: 12px;">Word travels fast in the valley.</h2>
+      <div class="eyebrow" style="justify-content: center; display: inline-flex;">
+        <T en="From our regulars" hi="हमारे ग्राहक कहते हैं" />
+      </div>
+      <h2 class="section-title" style="margin-top: 12px;">
+        <T en="Word travels fast in the valley." hi="घाटी में बात तेज़ी से फैलती है।" />
+      </h2>
     </div>
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--gap);">
       {reviews.map((r) => (
         <div style="background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); padding: 28px; box-shadow: var(--card-shadow); display: flex; flex-direction: column; position: relative;">
           <div style='position: absolute; top: 16px; right: 20px; font-family: var(--serif); font-size: 64px; color: var(--marigold); line-height: 1; opacity: 0.5;'>"</div>
           <Motif type="stars" count={r.rating} />
-          <p style="font-size: 15px; line-height: 1.6; color: var(--ink); margin: 16px 0 24px; flex: 1;">{r.body}</p>
+          <p style="font-size: 15px; line-height: 1.6; color: var(--ink); margin: 16px 0 24px; flex: 1;">
+            <T en={r.bodyEn} hi={r.bodyHi} />
+          </p>
           <div style="display: flex; align-items: center; gap: 12px; padding-top: 16px; border-top: 1px solid var(--line);">
-            <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--terracotta); color: #fff; display: grid; place-items: center; font-family: var(--serif); font-weight: 800; font-size: 16px;">{r.name[0]}</div>
+            <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--terracotta); color: #fff; display: grid; place-items: center; font-family: var(--serif); font-weight: 800; font-size: 16px;">
+              {r.nameEn[0]}
+            </div>
             <div>
-              <div style="font-weight: 700; font-size: 14px;">{r.name}</div>
-              <div style="font-size: 12px; color: var(--ink-soft);">{r.role}</div>
+              <div style="font-weight: 700; font-size: 14px;">
+                <T en={r.nameEn} hi={r.nameHi} />
+              </div>
+              <div style="font-size: 12px; color: var(--ink-soft);">
+                <T en={r.roleEn} hi={r.roleHi} />
+              </div>
             </div>
           </div>
         </div>

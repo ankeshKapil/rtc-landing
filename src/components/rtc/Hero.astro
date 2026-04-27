@@ -1,5 +1,6 @@
 ---
 import Motif from "./Motifs.astro";
+import T from "./T.astro";
 import pulses from "../../assets/pulses.png";
 import cement from "../../assets/cement.png";
 import feed from "../../assets/feed.png";
@@ -17,34 +18,49 @@ const shelf2 = [
   { src: tmt.src, label: "TMT" },
   { src: kaka.src, label: "Khal" },
 ];
+
+const stats = [
+  { en: ["25+", "Years of trust"], hi: ["25+", "साल का भरोसा"] },
+  { en: ["8+", "Authorized brands"], hi: ["8+", "अधिकृत ब्रांड"] },
+  { en: ["120+", "Villages we serve"], hi: ["120+", "गाँव हमारी पहुँच में"] },
+];
 ---
 
 <section style="padding: 0; background: var(--paper); border-bottom: 1px solid var(--line);">
   <div class="container-wide hero-grid" style="display: grid; grid-template-columns: 1.1fr 1fr; min-height: min(78vh, 720px); align-items: stretch;">
     <div class="hero-text" style="padding: 5rem 3rem 5rem 0; display: flex; flex-direction: column; justify-content: center;">
-      <div class="eyebrow">Wholesale &amp; Retail · Hamirpur, HP</div>
+      <div class="eyebrow">
+        <T en="Wholesale & Retail · Hamirpur, HP" hi="थोक एवं फुटकर · हमीरपुर, हि.प्र." />
+      </div>
       <h1 style="font-size: clamp(40px, 5.2vw, 76px); margin: 16px 0 20px; letter-spacing: -0.025em;">
-        <span style="color: var(--ink);">The everyday store</span><br />
-        <span style="color: var(--terracotta); font-style: italic; font-weight: 500;">of the Hamirpur valley.</span>
+        <span lang="en">
+          <span style="color: var(--ink);">The everyday store</span><br />
+          <span style="color: var(--terracotta); font-style: italic; font-weight: 500;">of the Hamirpur valley.</span>
+        </span>
+        <span lang="hi">
+          <span style="color: var(--ink);">हमीरपुर घाटी की</span><br />
+          <span style="color: var(--terracotta); font-style: italic; font-weight: 500;">रोज़मर्रा की दुकान।</span>
+        </span>
       </h1>
       <p style="font-size: 18px; color: var(--ink-soft); max-width: 52ch; line-height: 1.55;">
-        Karyana, cattle feed, cement, TMT bars and dham catering — under one roof since 1999. Authorized dealer of ACC, Bangur, Kamdhenu, Elephant Masalas and more.
+        <T en="Karyana, cattle feed, cement, TMT bars and dham catering — under one roof since 1999. Authorized dealer of ACC, Bangur, Kamdhenu, Elephant Masalas and more." hi="किराना, पशु आहार, सीमेंट, टीएमटी और धाम कैटरिंग — एक ही छत के नीचे, 1999 से। ACC, बांगुर, कामधेनु, एलिफेंट मसाले के अधिकृत डीलर।" />
       </p>
       <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 32px;">
-        <a href="#bulk" class="btn btn-primary" style="padding: 14px 24px; font-size: 16px;">Request a Bulk Quote →</a>
-        <a href="https://wa.me/917018657685" class="btn btn-wa" style="padding: 14px 24px; font-size: 16px;">
-          <Motif type="whatsapp" size={18} /> WhatsApp Order
+        <a href="#bulk" class="btn btn-primary" style="padding: 14px 24px; font-size: 16px;">
+          <T en="Request a Bulk Quote →" hi="थोक रेट पूछें →" />
+        </a>
+        <a href="https://wa.me/917018657685" target="_blank" rel="noopener" class="btn btn-wa" style="padding: 14px 24px; font-size: 16px;">
+          <Motif type="whatsapp" size={18} />
+          <T en="WhatsApp Order" hi="WhatsApp पर ऑर्डर" />
         </a>
       </div>
       <div style="display: flex; gap: 28px; flex-wrap: wrap; margin-top: 36px;">
-        {[
-          ["25+", "Years of trust"],
-          ["8+", "Authorized brands"],
-          ["120+", "Villages we serve"],
-        ].map((s) => (
+        {stats.map((s) => (
           <div style="border-left: 2px solid var(--terracotta); padding-left: 14px;">
-            <div style="font-family: var(--serif); font-size: 32px; font-weight: 800; color: var(--terracotta); line-height: 1;">{s[0]}</div>
-            <div style="font-size: 13px; color: var(--ink-soft); margin-top: 6px; font-weight: 500;">{s[1]}</div>
+            <div style="font-family: var(--serif); font-size: 32px; font-weight: 800; color: var(--terracotta); line-height: 1;">{s.en[0]}</div>
+            <div style="font-size: 13px; color: var(--ink-soft); margin-top: 6px; font-weight: 500;">
+              <T en={s.en[1]} hi={s.hi[1]} />
+            </div>
           </div>
         ))}
       </div>

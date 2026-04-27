@@ -1,29 +1,41 @@
 ---
-import Motif from "./Motifs.astro";
+import T from "./T.astro";
 
-const address = ["Chowki Jamwalan, SH-39", "Hamirpur, Himachal Pradesh", "PIN 177020"];
+const addressEn = ["Chowki Jamwalan, SH-39", "Hamirpur, Himachal Pradesh", "PIN 177020"];
+const addressHi = ["चौकी जमवालां, SH-39", "हमीरपुर, हिमाचल प्रदेश", "पिन 177020"];
 ---
 
 <section id="location" style="background: var(--paper);">
   <div class="container">
     <div class="location-grid" style="display: grid; grid-template-columns: 1fr 1.4fr; gap: 56px; align-items: stretch;">
       <div>
-        <div class="eyebrow">Visit the shop</div>
-        <h2 class="section-title" style="margin-top: 12px;">Chowki Jamwalan, SH-39.</h2>
-        <p class="section-sub" style="margin-top: 16px;">Right on the state highway. Easy truck loading. Open every day, including Sundays.</p>
+        <div class="eyebrow"><T en="Visit the shop" hi="दुकान पर आइए" /></div>
+        <h2 class="section-title" style="margin-top: 12px;">
+          <T en="Chowki Jamwalan, SH-39." hi="चौकी जमवालां, SH-39।" />
+        </h2>
+        <p class="section-sub" style="margin-top: 16px;">
+          <T en="Right on the state highway. Easy truck loading. Open every day, including Sundays." hi="स्टेट हाईवे पर ही। ट्रक लोडिंग आसान। रोज़ खुला, रविवार भी।" />
+        </p>
         <div style="margin-top: 28px; padding: 24px; background: var(--bg); border: 1px solid var(--line); border-radius: 12px;">
-          <div style="font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--terracotta); font-weight: 700; margin-bottom: 8px;">Address</div>
-          {address.map((line, i) => (
-            <div style={`font-size: 16px; font-weight: ${i === 0 ? 700 : 500}; font-family: ${i === 0 ? "var(--serif)" : "inherit"}; color: var(--ink); line-height: 1.5;`}>{line}</div>
+          <div style="font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--terracotta); font-weight: 700; margin-bottom: 8px;">
+            <T en="Address" hi="पता" />
+          </div>
+          {addressEn.map((line, i) => (
+            <div style={`font-size: 16px; font-weight: ${i === 0 ? 700 : 500}; font-family: ${i === 0 ? "var(--serif)" : "inherit"}; color: var(--ink); line-height: 1.5;`}>
+              <T en={line} hi={addressHi[i]} />
+            </div>
           ))}
           <div style="margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; font-size: 14px;">
-            <span style="color: var(--ink-soft);">Hours</span>
-            <span style="font-weight: 600;">Daily · 9:00 AM – 7:00 PM</span>
+            <span style="color: var(--ink-soft);"><T en="Hours" hi="समय" /></span>
+            <span style="font-weight: 600;">
+              <T en="Daily · 9:00 AM – 7:00 PM" hi="रोज़ · सुबह 9 से शाम 7 बजे" />
+            </span>
           </div>
         </div>
         <div style="display: flex; gap: 12px; margin-top: 16px; flex-wrap: wrap;">
-          <a href="https://maps.app.goo.gl/zZKJ4EBinkXCbxQc7" target="_blank" rel="noopener" class="btn btn-primary">Open in Google Maps →</a>
-          <a href="tel:+917018657685" class="btn btn-ghost"><Motif type="phone" size={16} /> Call</a>
+          <a href="https://maps.app.goo.gl/zZKJ4EBinkXCbxQc7" target="_blank" rel="noopener" class="btn btn-primary">
+            <T en="Open in Google Maps →" hi="Google Maps में खोलें →" />
+          </a>
         </div>
       </div>
       <div style="border-radius: var(--radius); overflow: hidden; border: 3px solid var(--marigold); box-shadow: var(--card-shadow); min-height: 420px;">
