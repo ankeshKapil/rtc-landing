@@ -8,12 +8,18 @@ export interface Props {
   title?: string;
   description?: string;
   image?: string;
+  bare?: boolean;
+  bodyClass?: string;
+  fontHref?: string;
 }
 
-const { 
+const {
   title = "Roop Trading Company - Wholesale & Retail Store in Hamirpur, HP",
   description = "Your trusted wholesale and retail store in Hamirpur, Himachal Pradesh for grocery, construction material, cattle feed and more. Special discounts on wholesale orders.",
-  image = "/images/shop-front.jpg"
+  image = "/images/shop-front.jpg",
+  bare = false,
+  bodyClass = "min-h-screen flex flex-col bg-neutral-50",
+  fontHref = "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Poppins:wght@600;700&display=swap",
 } = Astro.props;
 ---
 
@@ -26,7 +32,7 @@ const {
     <meta name="generator" content={Astro.generator} />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+    <link href={fontHref} rel="stylesheet">
     <Analytics/>
     <SEO
       title={title}
@@ -110,12 +116,18 @@ const {
       }
     </script>
   </head>
-  <body class="min-h-screen flex flex-col bg-neutral-50">
-    <Header/>
-    <main class="flex-1">
+  <body class={bodyClass}>
+    {bare ? (
       <slot />
-    </main>
-    <Footer/>
+    ) : (
+      <>
+        <Header />
+        <main class="flex-1">
+          <slot />
+        </main>
+        <Footer />
+      </>
+    )}
   </body>
 </html>
 

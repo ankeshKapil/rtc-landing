@@ -1,0 +1,89 @@
+---
+import Motif from "./Motifs.astro";
+import pulses from "../../assets/pulses.png";
+import cement from "../../assets/cement.png";
+import feed from "../../assets/feed.png";
+import spices from "../../assets/spices.png";
+import tmt from "../../assets/tmt.png";
+import kaka from "../../assets/kaka.png";
+
+const shelf1 = [
+  { src: pulses.src, label: "Karyana" },
+  { src: cement.src, label: "Cement" },
+  { src: feed.src, label: "Feed" },
+];
+const shelf2 = [
+  { src: spices.src, label: "Masala" },
+  { src: tmt.src, label: "TMT" },
+  { src: kaka.src, label: "Khal" },
+];
+---
+
+<section style="padding: 0; background: var(--paper); border-bottom: 1px solid var(--line);">
+  <div class="container-wide hero-grid" style="display: grid; grid-template-columns: 1.1fr 1fr; min-height: min(78vh, 720px); align-items: stretch;">
+    <div class="hero-text" style="padding: 5rem 3rem 5rem 0; display: flex; flex-direction: column; justify-content: center;">
+      <div class="eyebrow">Wholesale &amp; Retail · Hamirpur, HP</div>
+      <h1 style="font-size: clamp(40px, 5.2vw, 76px); margin: 16px 0 20px; letter-spacing: -0.025em;">
+        <span style="color: var(--ink);">The everyday store</span><br />
+        <span style="color: var(--terracotta); font-style: italic; font-weight: 500;">of the Hamirpur valley.</span>
+      </h1>
+      <p style="font-size: 18px; color: var(--ink-soft); max-width: 52ch; line-height: 1.55;">
+        Karyana, cattle feed, cement, TMT bars and dham catering — under one roof since 1999. Authorized dealer of ACC, Bangur, Kamdhenu, Elephant Masalas and more.
+      </p>
+      <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 32px;">
+        <a href="#bulk" class="btn btn-primary" style="padding: 14px 24px; font-size: 16px;">Request a Bulk Quote →</a>
+        <a href="https://wa.me/917018657685" class="btn btn-wa" style="padding: 14px 24px; font-size: 16px;">
+          <Motif type="whatsapp" size={18} /> WhatsApp Order
+        </a>
+      </div>
+      <div style="display: flex; gap: 28px; flex-wrap: wrap; margin-top: 36px;">
+        {[
+          ["25+", "Years of trust"],
+          ["8+", "Authorized brands"],
+          ["120+", "Villages we serve"],
+        ].map((s) => (
+          <div style="border-left: 2px solid var(--terracotta); padding-left: 14px;">
+            <div style="font-family: var(--serif); font-size: 32px; font-weight: 800; color: var(--terracotta); line-height: 1;">{s[0]}</div>
+            <div style="font-size: 13px; color: var(--ink-soft); margin-top: 6px; font-weight: 500;">{s[1]}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div style="position: relative; background: var(--cream); overflow: hidden; min-height: 400px;">
+      <div style="position: absolute; inset: 0; opacity: 0.15;">
+        <Motif type="sunburst" size={700} color="var(--terracotta)" />
+      </div>
+      <div style="position: absolute; top: 0; left: 0; right: 0; opacity: 0.85;">
+        <Motif type="toran" count={10} />
+      </div>
+      <div style="position: absolute; inset: 0; display: grid; place-items: center; padding: 5rem 2rem 3rem;">
+        <div style="width: min(440px, 90%); aspect-ratio: 1 / 1.05; background: var(--paper); border: 8px solid var(--terracotta); border-radius: 8px 8px 200px 200px / 8px 8px 80px 80px; padding: 28px; position: relative; box-shadow: 0 24px 60px -20px rgba(60,30,10,0.35), inset 0 0 0 3px var(--marigold);">
+          <div style="background: var(--forest); color: #FFE9C2; text-align: center; padding: 16px 12px; border-radius: 4px; margin-bottom: 18px; border: 2px solid var(--marigold);">
+            <div style="font-family: var(--hindi-display); font-size: 22px; font-weight: 700; line-height: 1.1;">रूप ट्रेडिंग कंपनी</div>
+            <div style="font-size: 10px; letter-spacing: 0.18em; margin-top: 4px; opacity: 0.85;">SINCE 1999 · HAMIRPUR</div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 14px;">
+            {shelf1.map((p) => (
+              <div style="background: var(--bg); aspect-ratio: 1; border-radius: 6px; overflow: hidden; border: 1px solid var(--line); display: grid; place-items: center; padding: 8px;">
+                <img src={p.src} alt={p.label} style="width: 100%; height: 100%; object-fit: contain;" />
+              </div>
+            ))}
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
+            {shelf2.map((p) => (
+              <div style="background: var(--bg); aspect-ratio: 1; border-radius: 6px; overflow: hidden; border: 1px solid var(--line); display: grid; place-items: center; padding: 8px;">
+                <img src={p.src} alt={p.label} style="width: 100%; height: 100%; object-fit: contain;" />
+              </div>
+            ))}
+          </div>
+
+          <div style="position: absolute; bottom: -28px; right: -20px; transform: rotate(8deg);">
+            <Motif type="seal" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

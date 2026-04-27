@@ -1,0 +1,45 @@
+---
+import acc from "../../assets/acc.png";
+import bangur from "../../assets/bangur.png";
+import kamdhenu from "../../assets/Kamdhenu.svg";
+import elephant from "../../assets/elephant.png";
+import pmark from "../../assets/p_mark.png";
+import rajdhani from "../../assets/rajdhani.png";
+import rajdhaniBesan from "../../assets/rajdhani_besan.png";
+import jalani from "../../assets/jalani.png";
+
+const brands = [
+  { name: "ACC Cement", logo: acc.src, desc: "Premium grade cement" },
+  { name: "Bangur Cement", logo: bangur.src, desc: "Construction grade" },
+  { name: "Kamdhenu TMT", logo: kamdhenu.src, desc: "Reinforcement bars" },
+  { name: "Elephant Masalas", logo: elephant.src, desc: "Authentic spices" },
+  { name: "P-Mark Mustard Oil", logo: pmark.src, desc: "Cold pressed oil" },
+  { name: "Rajdhani Oil", logo: rajdhani.src, desc: "Pure mustard oil" },
+  { name: "Rajdhani Besan", logo: rajdhaniBesan.src, desc: "Natural besan" },
+  { name: "Jalani Foods", logo: jalani.src, desc: "Hygienic food" },
+];
+---
+
+<section id="brands" style="background: var(--paper);">
+  <div class="container">
+    <div style="text-align: center; margin-bottom: 56px;">
+      <div class="eyebrow" style="justify-content: center; display: inline-flex;">Authorized partners</div>
+      <h2 class="section-title" style="margin-top: 12px;">Direct from company. Original sealed.</h2>
+      <p class="section-sub" style="margin: 16px auto 0;">We are authorized stockists for premium brands across categories — no duplicates, no compromise.</p>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0; border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; background: var(--bg);">
+      {brands.map((b) => (
+        <div class="brand-cell" style="padding: 32px 24px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); background: var(--paper); display: flex; flex-direction: column; align-items: center; text-align: center; gap: 12px;">
+          <div style="width: 90px; height: 90px; display: grid; place-items: center;">
+            <img src={b.logo} alt={b.name} style="max-width: 100%; max-height: 100%; object-fit: contain;" />
+          </div>
+          <div>
+            <div style="font-family: var(--serif); font-weight: 700; font-size: 16px;">{b.name}</div>
+            <div style="font-size: 12px; color: var(--ink-soft); margin-top: 4px;">{b.desc}</div>
+          </div>
+          <div style="font-size: 10px; letter-spacing: 0.18em; color: var(--terracotta); font-weight: 700;">★ AUTHORIZED</div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

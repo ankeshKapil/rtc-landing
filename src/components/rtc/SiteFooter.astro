@@ -1,0 +1,57 @@
+---
+import Motif from "./Motifs.astro";
+
+const cols = [
+  { title: "Shop", links: ["Karyana", "Construction", "Cattle feed", "Dham catering"] },
+  { title: "Brands", links: ["ACC Cement", "Bangur Cement", "Kamdhenu TMT", "Elephant Masalas", "P-Mark Oil", "Rajdhani"] },
+  { title: "Visit", links: ["Location", "Delivery zones", "Hours", "Bulk quote"] },
+];
+---
+
+<section class="footer-cta-bar" style="background: var(--terracotta); color: #FFE9C2; padding: 4rem 0;">
+  <div class="container footer-cta-grid" style="display: grid; grid-template-columns: 1.4fr auto; gap: 32px; align-items: center;">
+    <div>
+      <div style="font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--marigold); font-weight: 700;">Place an order</div>
+      <h2 class="section-title" style="color: #fff; margin-top: 8px;">Ready to place an order?</h2>
+      <p style="font-size: 17px; opacity: 0.9; margin-top: 10px;">WhatsApp your list, or call us. We pick up.</p>
+    </div>
+    <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+      <a href="https://wa.me/917018657685" class="btn btn-wa"><Motif type="whatsapp" size={16} /> WhatsApp</a>
+      <a href="tel:+917018657685" class="btn btn-marigold"><Motif type="phone" size={16} /> +91 7018 657 685</a>
+    </div>
+  </div>
+</section>
+
+<footer style="background: #1a130a; color: #E8DCC2; padding: 4rem 0 2rem;">
+  <div class="container">
+    <div class="footer-grid" style="display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 40px;">
+      <div>
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+          <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--terracotta); color: var(--marigold); display: grid; place-items: center; font-family: var(--serif); font-weight: 900; border: 2px solid var(--marigold);">रू</div>
+          <div style="font-family: var(--serif); font-weight: 700; font-size: 18px; color: #fff;">Roop Trading Company</div>
+        </div>
+        <p style="font-size: 14px; color: #B8AC92; line-height: 1.6;">An honest karyana, a serious wholesale supplier — for 25 years and counting.</p>
+        <div style="margin-top: 20px; font-size: 13px; color: #B8AC92;">
+          <div>Chowki Jamwalan, SH-39</div>
+          <div>Hamirpur, HP 177020</div>
+          <div style="margin-top: 8px;">+91 7018 657 685</div>
+          <div>rooptrading85@gmail.com</div>
+        </div>
+      </div>
+      {cols.map((col) => (
+        <div>
+          <div style="font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--marigold); font-weight: 700; margin-bottom: 16px;">{col.title}</div>
+          <ul style="list-style: none; padding: 0; margin: 0; display: grid; gap: 10px;">
+            {col.links.map((l) => (
+              <li><a href="#" style="color: #B8AC92; text-decoration: none; font-size: 14px;">{l}</a></li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+    <div style="padding-top: 24px; border-top: 1px solid #3a2d1a; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; font-size: 13px; color: #8a7c62;">
+      <div>© 2026 Roop Trading Company. Hamirpur, HP. All rights reserved.</div>
+      <div>GST · Authorized dealer · Established 1999</div>
+    </div>
+  </div>
+</footer>

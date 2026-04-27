@@ -1,0 +1,33 @@
+---
+import Motif from "./Motifs.astro";
+
+const items = [
+  { k: "Authorized dealer", v: "ACC, Bangur, Kamdhenu TMT, Elephant, Rajdhani, P-Mark, Jalani — direct from company." },
+  { k: "Wholesale rates, fairly", v: "Sharper prices on bulk orders for contractors, dairies and shopkeepers." },
+  { k: "Door delivery, district-wide", v: "Paid delivery anywhere in Hamirpur district. Order by phone or WhatsApp." },
+  { k: "Hindi & Pahari spoken", v: "Our team explains rates, schemes and product details in your language." },
+];
+---
+
+<section style="padding: 5rem 0 4rem; background: var(--bg); position: relative;">
+  <div class="container">
+    <div style="text-align: center; margin-bottom: 56px;">
+      <div style="display: flex; justify-content: center; margin-bottom: 12px;">
+        <Motif type="paisley" />
+      </div>
+      <div class="eyebrow" style="justify-content: center; display: inline-flex;">Why Hamirpur shops with us</div>
+      <h2 class="section-title" style="max-width: 20ch; margin: 12px auto 0;">Built on small details, every day for 25 years.</h2>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--gap);">
+      {items.map((it, i) => (
+        <div style="padding: 28px 24px; background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); position: relative; box-shadow: var(--card-shadow);">
+          <div style="width: 36px; height: 36px; border-radius: 8px; background: var(--marigold); color: var(--ink); display: grid; place-items: center; font-family: var(--serif); font-weight: 800; font-size: 15px; margin-bottom: 16px;">
+            {`0${i + 1}`}
+          </div>
+          <h3 style="font-size: 19px; margin-bottom: 8px;">{it.k}</h3>
+          <p style="color: var(--ink-soft); font-size: 14.5px; line-height: 1.55;">{it.v}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

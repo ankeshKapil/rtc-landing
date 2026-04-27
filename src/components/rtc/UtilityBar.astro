@@ -1,0 +1,25 @@
+---
+import Motif from "./Motifs.astro";
+---
+
+<div class="util-bar">
+  <div class="container-wide">
+    <div class="util-pills">
+      <span style="display: inline-flex; align-items: center; gap: 6px;">
+        <span style="width: 6px; height: 6px; border-radius: 50%; background: #7BD389;"></span>
+        Open 9:00 AM – 7:00 PM · All Days
+      </span>
+      <span class="util-extra">·</span>
+      <span class="util-extra" style="display: inline-flex; align-items: center; gap: 6px;">
+        <Motif type="truck" size={14} /> Paid delivery across Hamirpur district
+      </span>
+    </div>
+    <div class="util-pills">
+      <span class="util-extra">GST Registered</span>
+      <span class="util-extra">·</span>
+      <a href="tel:+917018657685" style="display: inline-flex; align-items: center; gap: 6px;">
+        <Motif type="phone" size={13} /> +91 7018 657 685
+      </a>
+    </div>
+  </div>
+</div>
