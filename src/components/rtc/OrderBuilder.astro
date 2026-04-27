@@ -1,0 +1,323 @@
+---
+import T from "./T.astro";
+import Motif from "./Motifs.astro";
+import { CATALOG, COUNTERS, UNITS, type Counter } from "../../data/catalog";
+
+const itemsByCounter: Record<Counter, typeof CATALOG> = {
+  karyana: CATALOG.filter((i) => i.counter === "karyana"),
+  construction: CATALOG.filter((i) => i.counter === "construction"),
+  feed: CATALOG.filter((i) => i.counter === "feed"),
+  dham: CATALOG.filter((i) => i.counter === "dham"),
+};
+
+const catalogJson = JSON.stringify({
+  items: CATALOG,
+  units: UNITS,
+  counters: COUNTERS,
+});
+---
+
+<section id="order-builder" style="background: var(--bg);">
+  <div class="container">
+    <div style="text-align: center; margin-bottom: 40px;">
+      <div class="eyebrow" style="justify-content: center; display: inline-flex;">
+        <T en="Order on WhatsApp" hi="WhatsApp पर ऑर्डर" />
+      </div>
+      <h2 class="section-title" style="margin-top: 12px;">
+        <T en="Pick what you need. Send the list in seconds." hi="चुनिए, और कुछ ही सेकंड में लिस्ट भेजिए।" />
+      </h2>
+      <p class="section-sub" style="margin: 16px auto 0;">
+        <T en="Tap items, set quantity, send the order on WhatsApp. We'll confirm rates and delivery time." hi="आइटम चुनें, मात्रा डालें, WhatsApp पर भेजें। हम रेट और डिलीवरी का समय बता देंगे।" />
+      </p>
+    </div>
+
+    <div class="ob-tabs" role="tablist">
+      {COUNTERS.map((c, i) => (
+        <button type="button" role="tab" class={`ob-tab${i === 0 ? " on" : ""}`} data-counter={c.id} aria-selected={i === 0 ? "true" : "false"}>
+          <span class="ob-tab-tag"><T en={c.tagEn} hi={c.tagHi} /></span>
+          <span class="ob-tab-name"><T en={c.nameEn} hi={c.nameHi} /></span>
+        </button>
+      ))}
+    </div>
+
+    {COUNTERS.map((c, i) => (
+      <div class="ob-panel" data-panel={c.id} hidden={i !== 0}>
+        <div class="ob-custom" data-counter={c.id}>
+          <div class="ob-custom-label">
+            <T en="Don't see what you need? Add it as a custom item:" hi="जो चाहिए वो नहीं दिख रहा? कस्टम आइटम जोड़ें:" />
+          </div>
+          <div class="ob-custom-row">
+            <input
+              type="text"
+              class="ob-custom-name"
+              data-ph-en="e.g. Suganda matchbox, Lifebuoy soap…"
+              data-ph-hi="जैसे: सुगंधा माचिस, लाइफ़बॉय साबुन…"
+              placeholder="e.g. Suganda matchbox, Lifebuoy soap…"
+            />
+            <input
+              type="number"
+              class="ob-custom-qty"
+              min="1"
+              step="1"
+              value="1"
+              inputmode="numeric"
+              aria-label="Quantity"
+            />
+            <select class="ob-custom-unit ob-unit" data-units={JSON.stringify(["pc", "kg", "g", "ltr", "pkt", "bag", "bundle", "qtl"].map((u) => ({ id: u, en: UNITS[u].labelEn, hi: UNITS[u].labelHi })))}>
+              {["pc", "kg", "g", "ltr", "pkt", "bag", "bundle", "qtl"].map((u) => (
+                <option value={u} selected={u === "pc"}>{UNITS[u].labelEn}</option>
+              ))}
+            </select>
+            <button type="button" class="ob-custom-add btn btn-primary">
+              <T en="+ Add" hi="+ जोड़ें" />
+            </button>
+          </div>
+        </div>
+
+        <div class="ob-grid">
+          {itemsByCounter[c.id].map((item) => (
+            <div class="ob-card" data-item={item.id} data-default-unit={item.defaultUnit} data-step={item.step}>
+              <div class="ob-card-name">
+                <T en={item.nameEn} hi={item.nameHi} />
+              </div>
+              <div class="ob-card-controls">
+                <button type="button" class="ob-add-btn">
+                  <span class="ob-add-label"><T en="Add" hi="जोड़ें" /></span>
+                  <span class="ob-added-label" hidden><T en="Added ✓" hi="जोड़ा ✓" /></span>
+                </button>
+                <div class="ob-qty-row" hidden>
+                  <button type="button" class="ob-step ob-step-minus" aria-label="Decrease">−</button>
+                  <input type="number" class="ob-qty" min="1" step={item.step} value={item.step} inputmode="numeric" />
+                  <button type="button" class="ob-step ob-step-plus" aria-label="Increase">+</button>
+                  <select class="ob-unit" data-units={JSON.stringify(item.units.map((u) => ({ id: u, en: UNITS[u].labelEn, hi: UNITS[u].labelHi })))}>
+                    {item.units.map((u) => (
+                      <option value={u} selected={u === item.defaultUnit}>{UNITS[u].labelEn}</option>
+                    ))}
+                  </select>
+                  <button type="button" class="ob-remove" aria-label="Remove">×</button>
+                </div>
+              </div>
+            </div>
+          ))}
+
+          <div class="ob-custom-list" data-counter-list={c.id}></div>
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <div id="ob-summary" hidden aria-live="polite">
+    <div class="container ob-summary-row">
+      <div class="ob-summary-count">
+        <strong id="ob-count">0</strong>
+        <T en="items selected" hi="आइटम चुने गए" />
+      </div>
+      <div class="ob-summary-actions">
+        <button type="button" id="ob-clear" class="btn btn-ghost">
+          <T en="Clear all" hi="सब हटाएँ" />
+        </button>
+        <button type="button" id="ob-send" class="btn btn-wa">
+          <Motif type="whatsapp" size={18} />
+          <T en="Send Order on WhatsApp" hi="WhatsApp पर ऑर्डर भेजें" />
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script type="application/json" id="ob-catalog" set:html={catalogJson}></script>
+</section>
+
+<style>
+  #order-builder { padding-bottom: calc(var(--rhythm) + 80px); }
+
+  .ob-tabs {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    background: var(--paper);
+    padding: 8px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    margin-bottom: 24px;
+  }
+  .ob-tab {
+    flex: 1 1 160px;
+    display: flex; flex-direction: column; align-items: flex-start;
+    gap: 2px;
+    background: transparent;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 14px;
+    cursor: pointer;
+    font-family: inherit;
+    color: var(--ink-soft);
+    transition: background 0.15s, color 0.15s;
+    text-align: left;
+  }
+  .ob-tab:hover { background: var(--cream); color: var(--ink); }
+  .ob-tab.on { background: var(--terracotta); color: #fff; }
+  .ob-tab.on .ob-tab-tag { color: var(--marigold); }
+  .ob-tab-tag { font-size: 10.5px; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 700; color: var(--terracotta); }
+  .ob-tab-name { font-family: var(--serif); font-size: 17px; font-weight: 700; }
+
+  .ob-custom {
+    background: var(--paper);
+    border: 1.5px dashed var(--marigold);
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin-bottom: 16px;
+  }
+  .ob-custom-label {
+    font-size: 13px; font-weight: 600;
+    color: var(--ink-soft);
+    margin-bottom: 8px;
+  }
+  .ob-custom-row {
+    display: grid;
+    grid-template-columns: 1fr 80px 110px auto;
+    gap: 8px;
+    align-items: center;
+  }
+  .ob-custom-name, .ob-custom-qty {
+    padding: 9px 12px;
+    border: 1.5px solid var(--line);
+    border-radius: 8px;
+    font-family: inherit; font-size: 14px;
+    background: var(--bg); color: var(--ink);
+    min-width: 0;
+  }
+  .ob-custom-name:focus, .ob-custom-qty:focus { outline: none; border-color: var(--terracotta); }
+  .ob-custom-qty { text-align: center; }
+  .ob-custom-add { padding: 10px 16px; font-size: 14px; }
+  .ob-custom-list { display: contents; }
+
+  .ob-card[data-custom="true"] { border-style: dashed; border-color: var(--marigold); }
+  .ob-card[data-custom="true"][data-added="true"] { border-color: var(--terracotta); border-style: solid; }
+
+  .ob-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 12px;
+  }
+
+  .ob-card {
+    background: var(--paper);
+    border: 1.5px solid var(--line);
+    border-radius: 12px;
+    padding: 16px;
+    display: flex; flex-direction: column; gap: 12px;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .ob-card[data-added="true"] {
+    border-color: var(--terracotta);
+    box-shadow: 0 4px 14px -6px rgba(184,52,27,0.25);
+  }
+  .ob-card-name { font-size: 15px; font-weight: 600; color: var(--ink); line-height: 1.35; }
+
+  .ob-card-controls { display: flex; flex-direction: column; gap: 10px; }
+
+  .ob-add-btn {
+    background: var(--cream);
+    color: var(--terracotta);
+    border: 1.5px solid var(--terracotta);
+    border-radius: 8px;
+    padding: 9px 14px;
+    font-family: inherit; font-weight: 600; font-size: 14px;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+  }
+  .ob-add-btn:hover { background: var(--terracotta); color: #fff; }
+  .ob-card[data-added="true"] .ob-add-btn { background: transparent; color: var(--forest); border-color: var(--forest); }
+  .ob-card[data-added="true"] .ob-add-btn:hover { background: var(--forest); color: #fff; }
+
+  .ob-qty-row {
+    display: grid;
+    grid-template-columns: auto 1fr auto auto auto;
+    gap: 6px;
+    align-items: center;
+  }
+  .ob-step {
+    width: 36px; height: 36px;
+    border: 1.5px solid var(--line);
+    background: var(--bg);
+    border-radius: 8px;
+    font-size: 18px; font-weight: 700;
+    cursor: pointer;
+    color: var(--ink);
+    font-family: inherit;
+  }
+  .ob-step:hover { border-color: var(--terracotta); color: var(--terracotta); }
+  .ob-qty {
+    width: 100%; padding: 8px 10px;
+    border: 1.5px solid var(--line);
+    border-radius: 8px;
+    font-family: inherit; font-size: 15px;
+    background: var(--bg); color: var(--ink);
+    text-align: center;
+    min-width: 0;
+  }
+  .ob-qty:focus { outline: none; border-color: var(--terracotta); }
+  .ob-unit {
+    padding: 8px 10px;
+    border: 1.5px solid var(--line);
+    border-radius: 8px;
+    font-family: inherit; font-size: 14px;
+    background: var(--bg); color: var(--ink);
+    cursor: pointer;
+  }
+  .ob-remove {
+    width: 36px; height: 36px;
+    border: 1.5px solid var(--line);
+    background: var(--bg);
+    border-radius: 8px;
+    color: var(--ink-soft);
+    font-size: 18px; font-weight: 700;
+    cursor: pointer;
+    font-family: inherit;
+  }
+  .ob-remove:hover { border-color: var(--terracotta); color: var(--terracotta); }
+
+  #ob-summary {
+    position: fixed;
+    bottom: 16px; left: 0; right: 0;
+    z-index: 45;
+    pointer-events: none;
+  }
+  #ob-summary[hidden] { display: none; }
+  .ob-summary-row {
+    pointer-events: auto;
+    background: var(--paper);
+    border: 1.5px solid var(--terracotta);
+    border-radius: 14px;
+    padding: 12px 18px;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 12px; flex-wrap: wrap;
+    box-shadow: 0 16px 40px -10px rgba(60,30,10,0.35);
+    margin: 0 auto;
+    max-width: min(1240px, 92vw);
+  }
+  .ob-summary-count {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 14px; color: var(--ink-soft);
+  }
+  .ob-summary-count strong {
+    font-family: var(--serif);
+    font-size: 24px;
+    color: var(--terracotta);
+    line-height: 1;
+  }
+  .ob-summary-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
+  @media (max-width: 600px) {
+    .ob-tab-tag { display: none; }
+    .ob-tab { flex: 1 1 auto; padding: 10px; }
+    .ob-tab-name { font-size: 14px; }
+    .ob-qty-row { grid-template-columns: auto 1fr auto auto; }
+    .ob-qty-row .ob-remove { grid-column: 1 / -1; width: 100%; }
+    .ob-summary-row { padding: 10px 14px; }
+    .ob-summary-count strong { font-size: 20px; }
+    .ob-custom-row {
+      grid-template-columns: 1fr 1fr;
+    }
+    .ob-custom-name { grid-column: 1 / -1; }
+    .ob-custom-add { grid-column: 1 / -1; width: 100%; }
+  }
+</style>

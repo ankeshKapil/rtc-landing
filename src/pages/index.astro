@@ -7,6 +7,7 @@ import Hero from "../components/rtc/Hero.astro";
 import TrustStrip from "../components/rtc/TrustStrip.astro";
 import Categories from "../components/rtc/Categories.astro";
 import DhamSection from "../components/rtc/DhamSection.astro";
+import OrderBuilder from "../components/rtc/OrderBuilder.astro";
 import BulkForm from "../components/rtc/BulkForm.astro";
 import BrandsSection from "../components/rtc/BrandsSection.astro";
 import DeliverySection from "../components/rtc/DeliverySection.astro";
@@ -30,6 +31,7 @@ import FloatActions from "../components/rtc/FloatActions.astro";
     <TrustStrip />
     <Categories />
     <DhamSection />
+    <OrderBuilder />
     <BulkForm />
     <BrandsSection />
     <DeliverySection />
@@ -42,6 +44,53 @@ import FloatActions from "../components/rtc/FloatActions.astro";
 
 <script>
   type Lang = "en" | "hi";
+
+  type CatalogPayload = {
+    items: Array<{
+      id: string; counter: string;
+      nameEn: string; nameHi: string;
+      defaultUnit: string; units: string[]; step: number;
+    }>;
+    units: Record<string, { id: string; labelEn: string; labelHi: string }>;
+    counters: Array<{ id: string; nameEn: string; nameHi: string; tagEn: string; tagHi: string }>;
+  };
+
+  const ORDER_KEY = "rtc-order";
+  const CUSTOM_KEY = "rtc-custom-order";
+
+  type CustomItem = { id: string; counter: string; name: string; qty: number; unit: string };
+
+  const order: Record<string, { qty: number; unit: string }> = (() => {
+    try {
+      const raw = sessionStorage.getItem(ORDER_KEY);
+      return raw ? JSON.parse(raw) : {};
+    } catch {
+      return {};
+    }
+  })();
+
+  const customOrder: Record<string, CustomItem> = (() => {
+    try {
+      const raw = sessionStorage.getItem(CUSTOM_KEY);
+      return raw ? JSON.parse(raw) : {};
+    } catch {
+      return {};
+    }
+  })();
+
+  function persistOrder() {
+    try { sessionStorage.setItem(ORDER_KEY, JSON.stringify(order)); } catch {}
+  }
+  function persistCustom() {
+    try { sessionStorage.setItem(CUSTOM_KEY, JSON.stringify(customOrder)); } catch {}
+  }
+
+  function getCatalog(): CatalogPayload | null {
+    const node = document.getElementById("ob-catalog");
+    if (!node) return null;
+    try { return JSON.parse(node.textContent || "{}"); } catch { return null; }
+  }
+  const catalog = getCatalog();
 
   function applyLang(lang: Lang) {
     document.body.dataset.lang = lang;
@@ -61,6 +110,24 @@ import FloatActions from "../components/rtc/FloatActions.astro";
     document.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>(
       "#bulk-form input[data-ph-en], #bulk-form textarea[data-ph-en]"
     ).forEach((el) => {
+      const ph = lang === "hi" ? el.dataset.phHi : el.dataset.phEn;
+      if (ph) el.placeholder = ph;
+    });
+
+    document.querySelectorAll<HTMLSelectElement>(".ob-unit").forEach((sel) => {
+      const units = JSON.parse(sel.dataset.units || "[]") as Array<{ id: string; en: string; hi: string }>;
+      const current = sel.value;
+      sel.innerHTML = "";
+      units.forEach((u) => {
+        const opt = document.createElement("option");
+        opt.value = u.id;
+        opt.textContent = lang === "hi" ? u.hi : u.en;
+        if (u.id === current) opt.selected = true;
+        sel.appendChild(opt);
+      });
+    });
+
+    document.querySelectorAll<HTMLInputElement>(".ob-custom-name").forEach((el) => {
       const ph = lang === "hi" ? el.dataset.phHi : el.dataset.phEn;
       if (ph) el.placeholder = ph;
     });
@@ -99,4 +166,305 @@ import FloatActions from "../components/rtc/FloatActions.astro";
     );
     window.open(`https://wa.me/917018657685?text=${msg}`, "_blank");
   });
+
+  // ===== Order builder =====
+
+  document.querySelectorAll<HTMLButtonElement>(".ob-tab").forEach((tab) => {
+    tab.addEventListener("click", () => {
+      const target = tab.dataset.counter;
+      document.querySelectorAll<HTMLButtonElement>(".ob-tab").forEach((t) => {
+        const on = t.dataset.counter === target;
+        t.classList.toggle("on", on);
+        t.setAttribute("aria-selected", on ? "true" : "false");
+      });
+      document.querySelectorAll<HTMLElement>(".ob-panel").forEach((p) => {
+        p.hidden = p.dataset.panel !== target;
+      });
+    });
+  });
+
+  function updateSummary() {
+    const count = Object.keys(order).length + Object.keys(customOrder).length;
+    const summary = document.getElementById("ob-summary");
+    const countEl = document.getElementById("ob-count");
+    if (summary) summary.hidden = count === 0;
+    if (countEl) countEl.textContent = String(count);
+  }
+
+  function renderCustomItem(item: CustomItem) {
+    const list = document.querySelector<HTMLElement>(`.ob-custom-list[data-counter-list="${item.counter}"]`);
+    if (!list) return;
+    if (list.querySelector(`[data-item="${item.id}"]`)) return;
+
+    const lang = (document.body.dataset.lang || "en") as Lang;
+    if (!catalog) return;
+    const unitMeta = catalog.units[item.unit];
+
+    const card = document.createElement("div");
+    card.className = "ob-card";
+    card.dataset.item = item.id;
+    card.dataset.custom = "true";
+    card.dataset.added = "true";
+
+    const unitsAll = ["pc", "kg", "g", "ltr", "pkt", "bag", "bundle", "qtl"];
+    const unitsJson = JSON.stringify(
+      unitsAll.map((u) => ({ id: u, en: catalog.units[u].labelEn, hi: catalog.units[u].labelHi }))
+    );
+    const unitOptions = unitsAll
+      .map((u) => `<option value="${u}"${u === item.unit ? " selected" : ""}>${lang === "hi" ? catalog.units[u].labelHi : catalog.units[u].labelEn}</option>`)
+      .join("");
+
+    card.innerHTML = `
+      <div class="ob-card-name" contenteditable="true" spellcheck="false"></div>
+      <div class="ob-card-controls">
+        <div class="ob-qty-row">
+          <button type="button" class="ob-step ob-step-minus" aria-label="Decrease">−</button>
+          <input type="number" class="ob-qty" min="1" step="1" value="${item.qty}" inputmode="numeric" />
+          <button type="button" class="ob-step ob-step-plus" aria-label="Increase">+</button>
+          <select class="ob-unit" data-units='${unitsJson}'>${unitOptions}</select>
+          <button type="button" class="ob-remove" aria-label="Remove">×</button>
+        </div>
+      </div>
+    `;
+    const nameEl = card.querySelector<HTMLElement>(".ob-card-name")!;
+    nameEl.textContent = item.name;
+    nameEl.addEventListener("input", () => {
+      const stored = customOrder[item.id];
+      if (stored) {
+        stored.name = (nameEl.textContent || "").trim();
+        persistCustom();
+      }
+    });
+
+    const qtyInput = card.querySelector<HTMLInputElement>(".ob-qty")!;
+    const unitSel = card.querySelector<HTMLSelectElement>(".ob-unit")!;
+    const minus = card.querySelector<HTMLButtonElement>(".ob-step-minus")!;
+    const plus = card.querySelector<HTMLButtonElement>(".ob-step-plus")!;
+    const removeBtn = card.querySelector<HTMLButtonElement>(".ob-remove")!;
+
+    minus.addEventListener("click", () => {
+      const stored = customOrder[item.id];
+      if (!stored) return;
+      stored.qty = Math.max(1, stored.qty - 1);
+      qtyInput.value = String(stored.qty);
+      persistCustom();
+    });
+    plus.addEventListener("click", () => {
+      const stored = customOrder[item.id];
+      if (!stored) return;
+      stored.qty = stored.qty + 1;
+      qtyInput.value = String(stored.qty);
+      persistCustom();
+    });
+    qtyInput.addEventListener("input", () => {
+      const stored = customOrder[item.id];
+      if (!stored) return;
+      const n = Number(qtyInput.value);
+      if (!isNaN(n) && n > 0) {
+        stored.qty = n;
+        persistCustom();
+      }
+    });
+    unitSel.addEventListener("change", () => {
+      const stored = customOrder[item.id];
+      if (!stored) return;
+      stored.unit = unitSel.value;
+      persistCustom();
+    });
+    removeBtn.addEventListener("click", () => {
+      delete customOrder[item.id];
+      persistCustom();
+      card.remove();
+      updateSummary();
+    });
+
+    list.appendChild(card);
+  }
+
+  document.querySelectorAll<HTMLElement>(".ob-custom").forEach((row) => {
+    const counter = row.dataset.counter!;
+    const nameInput = row.querySelector<HTMLInputElement>(".ob-custom-name")!;
+    const qtyInput = row.querySelector<HTMLInputElement>(".ob-custom-qty")!;
+    const unitSel = row.querySelector<HTMLSelectElement>(".ob-custom-unit")!;
+    const addBtn = row.querySelector<HTMLButtonElement>(".ob-custom-add")!;
+
+    const submit = () => {
+      const name = nameInput.value.trim();
+      if (!name) {
+        nameInput.focus();
+        return;
+      }
+      const qty = Math.max(1, Number(qtyInput.value) || 1);
+      const id = `custom-${counter}-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`;
+      const item: CustomItem = { id, counter, name, qty, unit: unitSel.value };
+      customOrder[id] = item;
+      persistCustom();
+      renderCustomItem(item);
+      updateSummary();
+      nameInput.value = "";
+      qtyInput.value = "1";
+      nameInput.focus();
+    };
+
+    addBtn.addEventListener("click", submit);
+    nameInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        submit();
+      }
+    });
+  });
+
+  Object.values(customOrder).forEach(renderCustomItem);
+
+  function renderCardState(card: HTMLElement) {
+    const id = card.dataset.item!;
+    const entry = order[id];
+    const qtyRow = card.querySelector<HTMLElement>(".ob-qty-row");
+    const addLabel = card.querySelector<HTMLElement>(".ob-add-label");
+    const addedLabel = card.querySelector<HTMLElement>(".ob-added-label");
+    const qtyInput = card.querySelector<HTMLInputElement>(".ob-qty");
+    const unitSel = card.querySelector<HTMLSelectElement>(".ob-unit");
+
+    if (entry) {
+      card.dataset.added = "true";
+      if (qtyRow) qtyRow.hidden = false;
+      if (addLabel) addLabel.hidden = true;
+      if (addedLabel) addedLabel.hidden = false;
+      if (qtyInput) qtyInput.value = String(entry.qty);
+      if (unitSel) unitSel.value = entry.unit;
+    } else {
+      delete card.dataset.added;
+      if (qtyRow) qtyRow.hidden = true;
+      if (addLabel) addLabel.hidden = false;
+      if (addedLabel) addedLabel.hidden = true;
+    }
+  }
+
+  document.querySelectorAll<HTMLElement>(".ob-card").forEach((card) => {
+    const id = card.dataset.item!;
+    const defaultUnit = card.dataset.defaultUnit!;
+    const step = Number(card.dataset.step || 1);
+
+    const addBtn = card.querySelector<HTMLButtonElement>(".ob-add-btn");
+    const minus = card.querySelector<HTMLButtonElement>(".ob-step-minus");
+    const plus = card.querySelector<HTMLButtonElement>(".ob-step-plus");
+    const qtyInput = card.querySelector<HTMLInputElement>(".ob-qty");
+    const unitSel = card.querySelector<HTMLSelectElement>(".ob-unit");
+    const removeBtn = card.querySelector<HTMLButtonElement>(".ob-remove");
+
+    addBtn?.addEventListener("click", () => {
+      if (order[id]) {
+        delete order[id];
+      } else {
+        order[id] = { qty: step, unit: defaultUnit };
+      }
+      persistOrder();
+      renderCardState(card);
+      updateSummary();
+    });
+
+    minus?.addEventListener("click", () => {
+      if (!order[id]) return;
+      order[id].qty = Math.max(step, order[id].qty - step);
+      qtyInput!.value = String(order[id].qty);
+      persistOrder();
+    });
+    plus?.addEventListener("click", () => {
+      if (!order[id]) return;
+      order[id].qty = order[id].qty + step;
+      qtyInput!.value = String(order[id].qty);
+      persistOrder();
+    });
+    qtyInput?.addEventListener("input", () => {
+      if (!order[id]) return;
+      const n = Number(qtyInput.value);
+      if (!isNaN(n) && n > 0) {
+        order[id].qty = n;
+        persistOrder();
+      }
+    });
+    unitSel?.addEventListener("change", () => {
+      if (!order[id]) return;
+      order[id].unit = unitSel.value;
+      persistOrder();
+    });
+    removeBtn?.addEventListener("click", () => {
+      delete order[id];
+      persistOrder();
+      renderCardState(card);
+      updateSummary();
+    });
+
+    renderCardState(card);
+  });
+
+  document.getElementById("ob-clear")?.addEventListener("click", () => {
+    Object.keys(order).forEach((k) => delete order[k]);
+    Object.keys(customOrder).forEach((k) => delete customOrder[k]);
+    persistOrder();
+    persistCustom();
+    document.querySelectorAll<HTMLElement>(".ob-card[data-custom='true']").forEach((c) => c.remove());
+    document.querySelectorAll<HTMLElement>(".ob-card:not([data-custom='true'])").forEach((c) => renderCardState(c));
+    updateSummary();
+  });
+
+  document.getElementById("ob-send")?.addEventListener("click", () => {
+    if (!catalog) return;
+    const lang = (document.body.dataset.lang || "en") as Lang;
+    const catalogIds = Object.keys(order);
+    const customIds = Object.keys(customOrder);
+    if (catalogIds.length === 0 && customIds.length === 0) return;
+
+    const itemsByCounter: Record<string, string[]> = {};
+
+    catalogIds.forEach((id) => {
+      const item = catalog.items.find((i) => i.id === id);
+      if (!item) return;
+      const entry = order[id];
+      const unitMeta = catalog.units[entry.unit];
+      const unitLabel = lang === "hi" ? unitMeta.labelHi : unitMeta.labelEn;
+      const name = lang === "hi" ? item.nameHi : item.nameEn;
+      (itemsByCounter[item.counter] ||= []).push(`- ${entry.qty} ${unitLabel} · ${name}`);
+    });
+
+    const customSuffix = lang === "hi" ? " (कस्टम)" : " (custom)";
+    customIds.forEach((id) => {
+      const c = customOrder[id];
+      const name = (c.name || "").trim();
+      if (!name) return;
+      const unitMeta = catalog.units[c.unit];
+      const unitLabel = lang === "hi" ? unitMeta.labelHi : unitMeta.labelEn;
+      (itemsByCounter[c.counter] ||= []).push(`- ${c.qty} ${unitLabel} · ${name}${customSuffix}`);
+    });
+
+    const headerEn = "Order from Roop Trading Company website";
+    const headerHi = "रूप ट्रेडिंग कंपनी की वेबसाइट से ऑर्डर";
+    const counterLabelEn = "Counter";
+    const counterLabelHi = "काउंटर";
+    const footerEn = "(Please confirm rates and delivery time.)";
+    const footerHi = "(कृपया रेट और डिलीवरी का समय बताएँ।)";
+
+    const sections = catalog.counters
+      .filter((c) => itemsByCounter[c.id])
+      .map((c) => {
+        const cName = lang === "hi" ? c.nameHi : c.nameEn;
+        const cLabel = lang === "hi" ? counterLabelHi : counterLabelEn;
+        return `${cLabel}: ${cName}\n${itemsByCounter[c.id].join("\n")}`;
+      });
+
+    const msg = [
+      lang === "hi" ? headerHi : headerEn,
+      "",
+      sections.join("\n\n"),
+      "",
+      lang === "hi" ? footerHi : footerEn,
+    ].join("\n");
+
+    window.open(`https://wa.me/917018657685?text=${encodeURIComponent(msg)}`, "_blank");
+  });
+
+  // hydrate from sessionStorage on load
+  applyLang((document.body.dataset.lang || "en") as Lang);
+  updateSummary();
 </script>
